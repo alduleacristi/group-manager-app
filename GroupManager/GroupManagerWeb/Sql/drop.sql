@@ -1,0 +1,2 @@
+use groupmanagerservices;
+drop database groupmanagerservices;
