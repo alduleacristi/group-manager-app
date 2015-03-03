@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+
+<!-- 	<persistence-unit name="groupmanager-mongo" transaction-type="JTA"> -->
+<!-- 		<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider> -->
+
+<!-- 		<class>org.groupmanager.team.model.User</class> -->
+<!-- 		<class>org.groupmanager.team.model.Group</class> -->
+
+<!-- 		<properties> -->
+<!-- 			<property name="hibernate.transaction.jta.platform" -->
+<!-- 				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" /> -->
+<!-- 			<property name="hibernate.ogm.datastore.provider" -->
+<!-- 				value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider" /> -->
+<!-- 			<property name="hibernate.ogm.datastore.database" value="${database}" /> -->
+<!-- 			<property name="hibernate.ogm.datastore.host" value="${persistence.host}" /> -->
+<!-- 			<property name="hibernate.ogm.datastore.port" value="${persistence.port}" /> -->
+<!-- 			<property name="hibernate.ogm.datastore.username" value="${persistence.username}" /> -->
+<!-- 			<property name="hibernate.ogm.datastore.password" value="${persistence.password}" /> -->
+<!-- 		</properties> -->
+<!-- 	</persistence-unit> -->
+	
+	<persistence-unit name="groupmanager-sql" transaction-type="JTA">
+	    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>${persistence.datasource}</jta-data-source>
+		
+		<class>org.groupmanager.team.model.User</class>
+		<class>org.groupmanager.team.model.Group</class>
+		
+		<properties>
+		    <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
+			<!-- property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory" / -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.connection.useUnicode" value="true" />
+			<property name="hibernate.connection.characterEncoding" value="UTF-8" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="reviewer.war_PersistenceUnitName" />
+		</properties>
+	    
+	</persistence-unit>
+
+</persistence>

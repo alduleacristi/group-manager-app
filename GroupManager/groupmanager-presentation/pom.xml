@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.groupmanager.team</groupId>
+		<artifactId>groupmanager</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../groupmanager</relativePath>
+	</parent>
+
+	<artifactId>groupmanager-presentation</artifactId>
+	<packaging>war</packaging>
+	<name>GroupManager-presentation</name>
+	<description>GroupManager-presentation</description>
+
+	<properties>
+		<asm.version>3.3.1</asm.version>
+		<jersey.bundle>1.18.3</jersey.bundle>
+		<json>20141113</json>
+		<jboss.deploy.folder>d:/Facultate/GroupManager/Software/wildfly-8.2.0.Final/standalone/deployments</jboss.deploy.folder>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.groupmanager.team</groupId>
+			<artifactId>groupmanager-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.groupmanager.team</groupId>
+			<artifactId>groupmanager-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>${asm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-bundle</artifactId>
+			<version>${jersey.bundle}</version>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.sun.jersey</groupId> -->
+<!-- 			<artifactId>jersey-server</artifactId> -->
+<!-- 			<version>${jersey.bundle}</version> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>${jersey.bundle}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${json}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-7.0</artifactId>
+			<version>1.0.0.Final</version>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<configuration>
+							<tasks>
+								<copy
+									file="${project.build.directory}/${project.build.finalName}.war"
+									tofile="${jboss.deploy.folder}/${project.build.finalName}.war" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<finalName>GroupManager</finalName>
+	</build>
+
+
+</project>
