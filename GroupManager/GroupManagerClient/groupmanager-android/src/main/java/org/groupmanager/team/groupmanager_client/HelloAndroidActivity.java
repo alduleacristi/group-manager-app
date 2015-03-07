@@ -25,8 +25,8 @@ public class HelloAndroidActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(
-				org.groupmanager.team.groupmanager_client.R.menu.main, menu);
+		//getMenuInflater().inflate(
+		//		org.groupmanager.team.groupmanager_client.R.menu.main, menu);
 		return true;
 	}
 
