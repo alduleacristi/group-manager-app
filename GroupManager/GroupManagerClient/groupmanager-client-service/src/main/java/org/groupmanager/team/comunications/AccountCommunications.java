@@ -2,11 +2,13 @@ package org.groupmanager.team.comunications;
 
 import java.io.IOException;
 
+import javax.ws.rs.core.Response;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.groupmanager.team.common.UserDTO;
-import org.groupmanager.team.responses.Response;
+import org.groupmanager.team.dto.UserDTO;
+import org.groupmanager.team.responses.GroupManagerResponse;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -37,10 +39,8 @@ public class AccountCommunications {
 					+ response.getStatus());
 		}
 
-		Response output = response.getEntity(Response.class);
+		GroupManagerResponse output = response.getEntity(GroupManagerResponse.class);
 
 		System.out.println("Server response .... \n");
-		System.out.println(output.getMessage());
-
 	}
 }
