@@ -1,6 +1,6 @@
 package org.groupmanager.team.convertors;
 
-import org.groupmanager.team.common.UserDTO;
+import org.groupmanager.team.dto.UserDTO;
 import org.groupmanager.team.model.User;
 
 public class UserConvertor {
