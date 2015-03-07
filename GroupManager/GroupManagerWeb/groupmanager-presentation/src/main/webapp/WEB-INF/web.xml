@@ -21,18 +21,18 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-<!-- 	<context-param> -->
-<!-- 		<param-name>resteasy.scan</param-name> -->
-<!-- 		<param-value>false</param-value> -->
-<!-- 	</context-param> -->
-<!-- 	<context-param> -->
-<!-- 		<param-name>resteasy.scan.providers</param-name> -->
-<!-- 		<param-value>false</param-value> -->
-<!-- 	</context-param> -->
-<!-- 	<context-param> -->
-<!-- 		<param-name>resteasy.scan.resources</param-name> -->
-<!-- 		<param-value>false</param-value> -->
-<!-- 	</context-param> -->
+	<context-param>
+		<param-name>resteasy.scan</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>resteasy.scan.providers</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>resteasy.scan.resources</param-name>
+		<param-value>false</param-value>
+	</context-param>
 	<servlet-mapping>
 		<servlet-name>Jersey REST Service</servlet-name>
 		<url-pattern>/api/*</url-pattern>
@@ -44,6 +44,6 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>SecurityFilter</filter-name>
-		<url-pattern>/api/secure/*</url-pattern>
+		<url-pattern>/api/security/*</url-pattern>
 	</filter-mapping>
 </web-app>

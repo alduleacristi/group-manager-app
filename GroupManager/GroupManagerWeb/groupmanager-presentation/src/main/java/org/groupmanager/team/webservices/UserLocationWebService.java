@@ -19,7 +19,7 @@ import org.gropumanager.team.comunications.CoordonatesComunication;
  * @author Cristi This class is used to get position from client.
  */
 
-@Path("/")
+@Path("/services")
 public class UserLocationWebService {
 	@Inject
 	private CoordonatesComunication coordCom;
