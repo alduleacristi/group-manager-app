@@ -13,9 +13,7 @@
 
     <FrameLayout
         android:layout_width="285dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/welcome" >
-
+        android:layout_height="match_parent" >
     </FrameLayout>
 
 </LinearLayout>
