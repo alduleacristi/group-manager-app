@@ -20,13 +20,9 @@ import com.sun.jersey.api.json.JSONConfiguration;
 public class AccountCommunications {
 	public void sendAddAccount(UserDTO userDTO, String url) {
 		ObjectMapper objMapper = new ObjectMapper();
-
-		// String content = objMapper.writeValueAsString(userDTO);
-
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
 				Boolean.TRUE);
-
 		Client client = Client.create(clientConfig);
 
 		WebResource webResource = client.resource(url);
