@@ -8,6 +8,8 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
+	public static final String GET_USERS_BY_EMAIL = "from User u where u.email like :email";
+	
 	private Long id;
 	private String email;
 	private String firstname;

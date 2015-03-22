@@ -13,4 +13,14 @@ public class UserConvertor {
 		
 		return user;
 	}
+	
+	public static UserDTO convertToUserDTO(User user){
+		UserDTO userDTO = new UserDTO();
+		userDTO.setEmail(user.getEmail());
+		userDTO.setId(user.getId());
+		userDTO.setFirstName(user.getFirstname());
+		userDTO.setLastName(user.getLastname());
+		
+		return userDTO;
+	}
 }
