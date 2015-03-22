@@ -1,4 +1,6 @@
-package org.groupmanager.team.groupmanager_client;
+package org.groupmanager.team.groupmanager.client.activity;
+
+import org.groupmanager.team.groupmanager_client.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
