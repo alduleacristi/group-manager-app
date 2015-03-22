@@ -2,13 +2,13 @@ package org.groupmanager.team.webservices;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -19,38 +19,34 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.groupmanager.team.common.ErrorList;
 import org.groupmanager.team.convertors.UserConvertor;
 import org.groupmanager.team.dto.UserDTO;
-import org.groupmanager.team.responses.GroupManagerResponseLogin;
-import org.groupmanager.team.user.GroupManagerSession;
+import org.groupmanager.team.model.User;
+import org.groupmanager.team.responses.GroupManagerResponseUsers;
+import org.groupmanager.team.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Path("/")
-public class SecurityWebService {
-	private Logger logger = LoggerFactory.getLogger(SecurityWebService.class);
+@Path("/security/users")
+public class UserWebService {
+	private Logger logger = LoggerFactory.getLogger(UserWebService.class);
 
 	@Inject
-	private GroupManagerSession session;
+	private UserService userService;
 
 	@POST
-	@Path("/login")
+	@Path("/getUsers")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response login(InputStream incomingData) {
+	public Response getUsersbyEmail(InputStream incomingData) {
 		ObjectMapper objMapper = new ObjectMapper();
-		GroupManagerResponseLogin response = new GroupManagerResponseLogin();
+		GroupManagerResponseUsers response = new GroupManagerResponseUsers();
+
 		try {
 			UserDTO userDTO = objMapper.readValue(incomingData, UserDTO.class);
+			List<User> users = userService.getUsersByEmail(userDTO.getEmail());
+			List<UserDTO> usersDTO = new ArrayList<UserDTO>();
+			for (User user : users)
+				usersDTO.add(UserConvertor.convertToUserDTO(user));
+			response.setUsers(usersDTO);
 
-			logger.info(String.format("User %1$s was autheticated with succes",
-					userDTO.getEmail()));
-			response.setMessage(String.format(
-					"User %1$s was authenticated with succes",
-					userDTO.getEmail()));
-
-			UUID token = UUID.randomUUID();
-			session.addUser(token.toString(),
-					UserConvertor.convertToUser(userDTO));
-			response.setToken(token.toString());
 			String result = null;
 			try {
 				result = objMapper.writeValueAsString(response);
@@ -61,7 +57,8 @@ public class SecurityWebService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return Response.status(Response.Status.OK).entity(result).build();
+
+			return Response.status(200).entity(result).build();
 		} catch (JsonParseException e) {
 			logger.error("User can not be parsed from JSON");
 			response.setError(ErrorList.JSON_PARSER);

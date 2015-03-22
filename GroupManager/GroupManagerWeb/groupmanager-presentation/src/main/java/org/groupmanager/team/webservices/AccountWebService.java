@@ -22,7 +22,6 @@ import org.groupmanager.team.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Path("/user")
 public class AccountWebService {
 	private Logger logger = LoggerFactory.getLogger(AccountWebService.class);
 
@@ -30,7 +29,7 @@ public class AccountWebService {
 	private UserService userService;
 
 	@POST
-	@Path("/addUser")
+	@Path("users/addUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addUser(InputStream incomingData) {
 		ObjectMapper objMapper = new ObjectMapper();
