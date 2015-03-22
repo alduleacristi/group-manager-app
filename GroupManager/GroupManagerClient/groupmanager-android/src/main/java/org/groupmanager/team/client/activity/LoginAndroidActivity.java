@@ -1,4 +1,4 @@
-package org.groupmanager.team.groupmanager.client.activity;
+package org.groupmanager.team.client.activity;
 
 import org.groupmanager.team.client.comunications.LoginCommunications;
 import org.groupmanager.team.client.exceptions.GroupManagerClientException;
