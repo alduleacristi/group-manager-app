@@ -31,4 +31,9 @@ public class UserService {
 		return em.createQuery(User.GET_USERS_BY_EMAIL)
 				.setParameter("email", email).getResultList();
 	}
+
+	public User getUserByEmail(String email) {
+		return (User) em.createQuery(User.GET_USER_BY_EMAIL)
+				.setParameter("email", email).getSingleResult();
+	}
 }

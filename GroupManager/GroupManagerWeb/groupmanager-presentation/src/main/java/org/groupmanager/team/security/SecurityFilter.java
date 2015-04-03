@@ -1,7 +1,6 @@
 package org.groupmanager.team.security;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.inject.Inject;
 import javax.servlet.Filter;
@@ -27,21 +26,14 @@ public class SecurityFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		System.out.println("***** Se filtreaza requestul ******");
-		if (session != null)
-			System.out.println("S-a injectat ");
-		else
-			System.out.println("Nu s-a injectat");
-
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
 
 		String token = servletRequest.getHeader("Authorization");
-		System.out.println("***** token-ul primit de la client: " + token);
 		User user = session.getUserByKey(token);
 		if (token == null || user == null) {
 			HttpServletResponse resp = (HttpServletResponse) response;
 			resp.setStatus(401);
-			resp.sendError(401, "You are not authorized to get users");
+			resp.sendError(401, "You are not authorized to acces resource");
 		} else {
 			chain.doFilter(request, response);
 		}

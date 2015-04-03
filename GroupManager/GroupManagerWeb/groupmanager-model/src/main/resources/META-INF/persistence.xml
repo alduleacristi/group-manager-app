@@ -29,6 +29,7 @@
 		
 		<class>org.groupmanager.team.model.User</class>
 		<class>org.groupmanager.team.model.Group</class>
+		<class>org.groupmanager.team.model.Position</class>
 		
 		<properties>
 		    <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
