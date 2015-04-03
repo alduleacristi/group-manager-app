@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/createGroup"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="Create a new group" />
+
+    <Button
+        android:id="@+id/viewGroup"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="View existing group" />
+
+</LinearLayout>

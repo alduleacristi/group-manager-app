@@ -1,0 +1,17 @@
+<resources>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="app_name">GroupManager</string>
+    <string name="hello">Hello groupmanager-client!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="retypepassword_hint">Retype password</string>
+    <string name="login_btn">Login</string>
+    <string name="createaccount_hint">Create account</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="error_password">Password and retype password must be the same</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_map_view">MapViewA</string>
+</resources>
