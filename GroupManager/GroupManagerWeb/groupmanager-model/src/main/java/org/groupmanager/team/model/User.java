@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,6 @@ import javax.persistence.Table;
 @Table(name = "gm_user")
 public class User {
 	public static final String GET_USERS_BY_EMAIL = "from User u where u.email like :email";
-	public static final String GET_USER_BY_EMAIL = "from User u where u.email = :email";
 
 	private Long id;
 	private String email;
@@ -68,7 +68,7 @@ public class User {
 		this.password = password;
 	}
 
-	@ManyToMany(mappedBy = "users")
+	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	public List<Group> getGroups() {
 		return groups;
 	}

@@ -10,6 +10,7 @@ public class UserConvertor {
 		user.setId(userDTO.getId());
 		user.setFirstname(userDTO.getFirstName());
 		user.setLastname(userDTO.getLastName());
+		user.setPassword(userDTO.getPassword());
 		
 		return user;
 	}
@@ -20,6 +21,7 @@ public class UserConvertor {
 		userDTO.setId(user.getId());
 		userDTO.setFirstName(user.getFirstname());
 		userDTO.setLastName(user.getLastname());
+		userDTO.setPassword(user.getPassword());
 		
 		return userDTO;
 	}
