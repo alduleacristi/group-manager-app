@@ -11,8 +11,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.groupmanager.team.model.User;
 import org.groupmanager.team.user.GroupManagerSession;
 
 public class SecurityFilter implements Filter {
@@ -29,8 +27,9 @@ public class SecurityFilter implements Filter {
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
 
 		String token = servletRequest.getHeader("Authorization");
-		User user = session.getUserByKey(token);
-		if (token == null || user == null) {
+		// User user = session.getUserByKey(token);
+		// if (token == null || user == null) {
+		if (token == null) {
 			HttpServletResponse resp = (HttpServletResponse) response;
 			resp.setStatus(401);
 			resp.sendError(401, "You are not authorized to acces resource");
