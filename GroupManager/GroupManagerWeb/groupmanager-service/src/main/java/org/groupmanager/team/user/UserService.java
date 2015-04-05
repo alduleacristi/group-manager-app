@@ -33,7 +33,7 @@ public class UserService {
 	}
 
 	public User getUserByEmail(String email) {
-		return (User) em.createQuery(User.GET_USER_BY_EMAIL)
+		return (User) em.createQuery("select u from User u where u.email = :email")
 				.setParameter("email", email).getSingleResult();
 	}
 }
