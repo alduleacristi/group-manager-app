@@ -1,5 +1,9 @@
 package team.groupmanager.org.groupmanager;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -8,15 +12,82 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.groupmanager.team.dto.PositionDTO;
+import org.groupmanager.team.dto.UserDTO;
+
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import team.groupmanager.org.communications.GroupCommunications;
+import team.groupmanager.org.communications.LoginCommunications;
+import team.groupmanager.org.exceptions.GroupManagerClientException;
+
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private GroupManagerClientException exc;
+    private List<PositionDTO> positions;
+    private ScheduledExecutorService scheduleTaskExecutor;
+
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(final Message message) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    MapsActivity.this);
+
+            if (exc != null) {
+                builder.setMessage(exc.getMessage());
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }else{
+                builder.setMessage("Data load successfuly");
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                //for(PositionDTO poz:positions) {
+                    //mMap.addMarker(new MarkerOptions().position(new LatLng(poz.getxPosition(), poz.getyPosition())).title(poz.getIdUser().toString()));
+                //}
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        setUpMapIfNeeded();
+
+        final Long groupId = getIntent().getLongExtra("groupId",1);
+
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+
+            public void run() {
+                GroupCommunications groupCommunications = new GroupCommunications();
+
+                try {
+                    positions = groupCommunications
+                            .getPositionForGroup(groupId,
+                                    "http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/security/groups/getPositions");
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMap.clear();
+                            for(PositionDTO poz:positions) {
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(poz.getxPosition(), poz.getyPosition())).title(poz.getIdUser().toString()));
+                            }
+                        }
+                    });
+
+                } catch (GroupManagerClientException e) {
+                    exc = e;
+                }
+                handler.sendEmptyMessage(0);
+            }
+        },0,20, TimeUnit.SECONDS);
     }
 
     @Override
@@ -60,6 +131,6 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+
     }
 }

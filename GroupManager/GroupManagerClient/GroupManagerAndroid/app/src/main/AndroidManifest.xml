@@ -43,6 +43,10 @@
             android:label="@string/title_activity_create_account" >
         </activity>
         <activity
+            android:name=".GroupListActivity"
+            android:label="@string/title_activity_choose_group" >
+        </activity>
+        <activity
             android:name=".MainMenuActivity"
             android:label="@string/title_activity_main_menu" >
         </activity>

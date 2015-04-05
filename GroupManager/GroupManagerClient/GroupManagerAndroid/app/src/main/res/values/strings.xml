@@ -1,6 +1,7 @@
 <resources>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_choose_group">Choose a group</string>
     <string name="app_name">GroupManager</string>
     <string name="hello">Hello groupmanager-client!</string>
     <string name="action_settings">Settings</string>

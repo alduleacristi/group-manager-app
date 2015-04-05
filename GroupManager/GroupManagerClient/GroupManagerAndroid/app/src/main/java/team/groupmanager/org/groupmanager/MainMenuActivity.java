@@ -23,7 +23,7 @@ public class MainMenuActivity extends ActionBarActivity {
             public void onClick(View arg0) {
                 try {
                     Intent intent = new Intent(MainMenuActivity.this,
-                            MapsActivity.class);
+                            GroupListActivity.class);
                     startActivity(intent);
                 }  catch (RuntimeException exc) {
                     Toast.makeText(MainMenuActivity.this,
