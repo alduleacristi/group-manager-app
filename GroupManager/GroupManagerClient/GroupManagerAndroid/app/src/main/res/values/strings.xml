@@ -15,4 +15,7 @@
     <string name="error_password">Password and retype password must be the same</string>
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="title_activity_map_view">MapViewA</string>
+    <string name="title_activity_add_user_to_group">AddUserToGroup</string>
+    <string name="title_activity_choose_group_to_add_users">Choose group to add users</string>
+    <string name="title_activity_create_group">Create group</string>
 </resources>

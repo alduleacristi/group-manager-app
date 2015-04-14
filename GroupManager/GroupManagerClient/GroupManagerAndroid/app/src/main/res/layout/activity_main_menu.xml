@@ -2,22 +2,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <Button
         android:id="@+id/createGroup"
-        android:layout_width="248dp"
+        android:layout_width="252dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:text="Create a new group" />
+        android:layout_marginTop="60dp"
+        android:text="Create a new group"
+        android:layout_weight="0.15" />
 
     <Button
         android:id="@+id/viewGroup"
-        android:layout_width="248dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="View existing group" />
+        android:layout_marginTop="50dp"
+        android:text="View existing group"
+        android:layout_weight="0.15" />
+
+    <Button
+        android:id="@+id/addUserToGroupOption"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="Add users to group"
+        android:layout_weight="0.15" />
+
+    <Button
+        android:id="@+id/leaveGroupOption"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="Leave group"
+        android:layout_weight="0.15" />
 
 </LinearLayout>

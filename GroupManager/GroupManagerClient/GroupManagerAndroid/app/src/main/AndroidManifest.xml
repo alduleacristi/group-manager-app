@@ -50,6 +50,24 @@
             android:name=".MainMenuActivity"
             android:label="@string/title_activity_main_menu" >
         </activity>
+        <activity
+            android:name=".AddUserToGroupActivity"
+            android:label="@string/title_activity_add_user_to_group" >
+        </activity>
+
+        <service
+            android:name="team.groupmanager.org.team.groupmanager.org.service.SendLocationService"
+            android:exported="false" >
+        </service>
+
+        <activity
+            android:name=".ChooseGroupToAddUsersActivity"
+            android:label="@string/title_activity_choose_group_to_add_users" >
+        </activity>
+        <activity
+            android:name=".CreateGroupActivity"
+            android:label="@string/title_activity_create_group" >
+        </activity>
     </application>
 
 </manifest>

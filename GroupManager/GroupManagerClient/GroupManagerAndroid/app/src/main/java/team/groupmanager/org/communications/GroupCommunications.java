@@ -62,7 +62,6 @@ public class GroupCommunications {
             RequestBody body = RequestBody.create(JSON, emailJson);
             Request request = new Request.Builder().addHeader("Authorization","token").url(url).post(body).build();
             response = client.newCall(request).execute();
-            Log.e("TAG","code");
             GroupManagerGroupResponse responseLogin = objMapper.readValue(
                     response.body().byteStream(),
                     GroupManagerGroupResponse.class);
