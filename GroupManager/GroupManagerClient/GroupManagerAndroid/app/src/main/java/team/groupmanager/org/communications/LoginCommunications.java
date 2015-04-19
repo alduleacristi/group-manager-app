@@ -21,35 +21,63 @@ public class LoginCommunications {
 	public static final MediaType JSON = MediaType
 			.parse("application/json; charset=utf-8");
 
-	public String login(UserDTO userDTO, String url)
-			throws GroupManagerClientException {
-		OkHttpClient client = new OkHttpClient();
-		client.setConnectTimeout(5, TimeUnit.SECONDS);
-		client.setReadTimeout(5, TimeUnit.SECONDS);
-		ObjectMapper objMapper = new ObjectMapper();
-		String jsonString;
-//		try {
-//			jsonString = objMapper.writeValueAsString(userDTO);
-//			RequestBody body = RequestBody.create(JSON, jsonString);
-//			Request request = new Request.Builder().url(url).post(body).build();
-//			Response response = client.newCall(request).execute();
-//			GroupManagerResponseLogin responseLogin = objMapper.readValue(
-//					response.body().byteStream(),
-//					GroupManagerResponseLogin.class);
-//			return responseLogin.getToken();
-//		} catch (JsonGenerationException e) {
-//			throw new GroupManagerClientException("Failed to authenticate");
-//		} catch (JsonMappingException e) {
-//			throw new GroupManagerClientException("Failed to authenticate");
-//		} catch (IOException e) {
-//			throw new GroupManagerClientException("Failed to authenticate");
-//		}
-		
-		return "token";
+    public GroupManagerResponseLogin login(UserDTO userDTO, String url)
+            throws GroupManagerClientException {
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(20, TimeUnit.SECONDS);
+        client.setReadTimeout(20, TimeUnit.SECONDS);
+        ObjectMapper objMapper = new ObjectMapper();
+        String jsonString;
+        try {
+            jsonString = objMapper.writeValueAsString(userDTO);
+            RequestBody body = RequestBody.create(JSON, jsonString);
+            Request request = new Request.Builder().url(url).post(body).build();
+            Response response = client.newCall(request).execute();
+            GroupManagerResponseLogin responseLogin = objMapper.readValue(
+                    response.body().byteStream(),
+                    GroupManagerResponseLogin.class);
+            return responseLogin;
+        } catch (JsonGenerationException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (JsonMappingException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new GroupManagerClientException("Failed to authenticate");
+        }
 
-	}
+    }
 
-	public void test() {
+
+    public GroupManagerResponseLogin logout(String token, String url)
+            throws GroupManagerClientException {
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(20, TimeUnit.SECONDS);
+        client.setReadTimeout(20, TimeUnit.SECONDS);
+        ObjectMapper objMapper = new ObjectMapper();
+        String jsonString;
+        try {
+            jsonString = objMapper.writeValueAsString(token);
+            RequestBody body = RequestBody.create(JSON, jsonString);
+            Request request = new Request.Builder().url(url).post(body).build();
+            Response response = client.newCall(request).execute();
+            response.code();
+            GroupManagerResponseLogin responseLogin = objMapper.readValue(
+                    response.body().byteStream(),
+                    GroupManagerResponseLogin.class);
+            return responseLogin;
+        } catch (JsonGenerationException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (JsonMappingException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (IOException exc) {
+            throw new GroupManagerClientException("Failed to authenticate",exc);
+        }
+
+    }
+
+
+    public void test() {
 		System.out.println("Test method");
 	}
 }

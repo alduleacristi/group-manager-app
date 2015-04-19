@@ -1,6 +1,9 @@
 package team.groupmanager.org.groupmanager;
 
+import org.groupmanager.team.common.ErrorList;
 import org.groupmanager.team.dto.UserDTO;
+import org.groupmanager.team.responses.GroupManagerResponseLogin;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,38 +15,24 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import team.groupmanager.org.communications.LoginCommunications;
 import team.groupmanager.org.exceptions.GroupManagerClientException;
+import team.groupmanager.org.util.SharedPreferencesUtil;
+import team.groupmanager.org.util.ShowMessageUtil;
 
 public class LoginActivity extends Activity {
     private GroupManagerClientException exc;
+    private SharedPreferencesUtil sharedPreferencesUtil;
+    private ShowMessageUtil showMessageUtil;
 
-    private final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(final Message message) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(
-                    LoginActivity.this);
-
-            if (exc != null) {
-                builder.setMessage(exc.getMessage());
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        }
-    };
-
-    private void saveToken(String token) {
-        SharedPreferences tokenPref = getSharedPreferences("TokenPref",
-                Context.MODE_PRIVATE);
-        Editor tokenEditor = tokenPref.edit();
-        tokenEditor.putString("Token", token);
-        tokenEditor.commit();
-    }
+    private final Handler handler = new Handler();
 
     private String getToken() {
         SharedPreferences tokenPref = getSharedPreferences("TokenPref",
@@ -52,25 +41,31 @@ public class LoginActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        //Disabled back button from Login
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String savedToken = getToken();
-        if (!savedToken.equals("")) {
-            Intent intent = new Intent(LoginActivity.this,
-                    MainMenuActivity.class);
-            startActivity(intent);
-        }
-
         setContentView(R.layout.activity_login);
+
+        sharedPreferencesUtil = new SharedPreferencesUtil(LoginActivity.this);
+        showMessageUtil = new ShowMessageUtil(handler,LoginActivity.this);
 
         final EditText email = (EditText) findViewById(R.id.email);
         final EditText password = (EditText) findViewById(R.id.password);
         final Button login = (Button) findViewById(R.id.loginButton);
+        final ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBarLogin);
 
         login.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(login.getWindowToken(), 0);
+                spinner.setVisibility(View.VISIBLE);
 
                 Runnable runnable = new Runnable() {
 
@@ -82,19 +77,33 @@ public class LoginActivity extends Activity {
                         LoginCommunications loginCommunications = new LoginCommunications();
 
                         try {
-                            String token = loginCommunications
+                           // GroupManagerResponseLogin response = loginCommunications
+                           //        .login(user,
+                           //                 "http://10.0.2.2:8080/GroupManager/api/login");
+                            GroupManagerResponseLogin response = loginCommunications
                                     .login(user,
-                                            "http://10.0.2.2:8080/GroupManager/api/login");
-                            saveToken(token);
+                                            "http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/login");
+                            if(response.getError() == ErrorList.FAILED_TO_AUTHENTICATE){
+                                showMessageUtil.showToast(response.getErrorMessage(), Toast.LENGTH_SHORT);
+                                return;
+                            }
+                            sharedPreferencesUtil.setToken(response.getToken());
+                            sharedPreferencesUtil.setEmail(user.getEmail());
 
                             Intent intent = new Intent(
                                     LoginActivity.this,
                                     MainMenuActivity.class);
                             startActivity(intent);
                         } catch (GroupManagerClientException e) {
-                            exc = e;
+                            showMessageUtil.showToast("Failed to authenticate", Toast.LENGTH_SHORT);
+                        }finally {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    spinner.setVisibility(View.GONE);
+                                }
+                            });
                         }
-                        handler.sendEmptyMessage(0);
                     }
                 };
 

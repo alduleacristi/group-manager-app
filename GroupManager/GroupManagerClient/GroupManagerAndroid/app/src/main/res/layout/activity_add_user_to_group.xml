@@ -46,7 +46,7 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="442dp"
+            android:layout_height="396dp"
             android:id="@android:id/list"
             android:layout_gravity="center_horizontal" />
 
@@ -59,6 +59,7 @@
         android:id="@+id/addSelectedUserToGroup"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>

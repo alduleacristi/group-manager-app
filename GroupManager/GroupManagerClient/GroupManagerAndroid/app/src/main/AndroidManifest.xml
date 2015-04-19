@@ -32,11 +32,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".CreateAccountActivity"
@@ -49,6 +44,11 @@
         <activity
             android:name=".MainMenuActivity"
             android:label="@string/title_activity_main_menu" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".AddUserToGroupActivity"
@@ -67,6 +67,10 @@
         <activity
             android:name=".CreateGroupActivity"
             android:label="@string/title_activity_create_group" >
+        </activity>
+        <activity
+            android:name=".ChooseGroupToRemoveUserActivity"
+            android:label="@string/title_activity_choose_group_to_remove_user" >
         </activity>
     </application>
 

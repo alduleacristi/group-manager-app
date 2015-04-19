@@ -8,6 +8,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.groupmanager.team.dto.GroupDTO;
 import org.groupmanager.team.dto.PositionDTO;
@@ -70,6 +72,89 @@ public class GroupCommunications {
             //Log.e("MyApp",e.getMessage());
             throw new GroupManagerClientException("Failed to get groups for user.");
 
+        }
+    }
+
+    public GroupManagerGroupResponse createGroup(String url, GroupDTO groupDTO,String token)
+            throws GroupManagerClientException {
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(5, TimeUnit.SECONDS);
+        client.setReadTimeout(5, TimeUnit.SECONDS);
+        ObjectMapper objMapper = new ObjectMapper();
+
+        String jsonString;
+        try {
+            jsonString = objMapper.writeValueAsString(groupDTO);
+            RequestBody body = RequestBody.create(JSON, jsonString);
+            Request request = new Request.Builder().addHeader("Authorization", token).url(url).post(body).build();
+            Response response = client.newCall(request).execute();
+
+            GroupManagerGroupResponse responseGroup = objMapper.readValue(
+                    response.body().byteStream(),
+                    GroupManagerGroupResponse.class);
+            return responseGroup;
+        } catch (JsonGenerationException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (JsonMappingException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (IOException e) {
+            throw new GroupManagerClientException("Failed to authenticate",e);
+        }
+    }
+
+    public String addUsersToGroup(String url, GroupDTO groupDTO,String token)
+            throws GroupManagerClientException {
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(5, TimeUnit.SECONDS);
+        client.setReadTimeout(5, TimeUnit.SECONDS);
+        ObjectMapper objMapper = new ObjectMapper();
+
+        String jsonString;
+        try {
+            jsonString = objMapper.writeValueAsString(groupDTO);
+            RequestBody body = RequestBody.create(JSON, jsonString);
+            Request request = new Request.Builder().addHeader("Authorization", token).url(url).post(body).build();
+            Response response = client.newCall(request).execute();
+
+            GroupManagerGroupResponse responseGroup = objMapper.readValue(
+                    response.body().byteStream(),
+                    GroupManagerGroupResponse.class);
+            return responseGroup.getMessage();
+        } catch (JsonGenerationException e) {
+            throw new GroupManagerClientException("Failed to authenticate",e);
+        } catch (JsonMappingException e) {
+            throw new GroupManagerClientException("Failed to authenticate",e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new GroupManagerClientException("Failed to authenticate",e);
+        }
+    }
+
+    public String removeUsersFromGroup(String url, GroupDTO groupDTO,String token)
+            throws GroupManagerClientException {
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(5, TimeUnit.SECONDS);
+        client.setReadTimeout(5, TimeUnit.SECONDS);
+        ObjectMapper objMapper = new ObjectMapper();
+
+        String jsonString;
+        try {
+            jsonString = objMapper.writeValueAsString(groupDTO);
+            RequestBody body = RequestBody.create(JSON, jsonString);
+            Request request = new Request.Builder().addHeader("Authorization", token).url(url).post(body).build();
+            Response response = client.newCall(request).execute();
+
+            GroupManagerGroupResponse responseGroup = objMapper.readValue(
+                    response.body().byteStream(),
+                    GroupManagerGroupResponse.class);
+            return responseGroup.getMessage();
+        } catch (JsonGenerationException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (JsonMappingException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new GroupManagerClientException("Failed to authenticate");
         }
     }
 }

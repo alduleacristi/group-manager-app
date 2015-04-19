@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -23,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import team.groupmanager.org.communications.GroupCommunications;
 import team.groupmanager.org.communications.LoginCommunications;
 import team.groupmanager.org.exceptions.GroupManagerClientException;
+import team.groupmanager.org.util.ShowMessageUtil;
 
 public class MapsActivity extends FragmentActivity {
 
@@ -30,34 +34,16 @@ public class MapsActivity extends FragmentActivity {
     private GroupManagerClientException exc;
     private List<PositionDTO> positions;
     private ScheduledExecutorService scheduleTaskExecutor;
+    private ShowMessageUtil showMessageUtil;
 
-    private final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(final Message message) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(
-                    MapsActivity.this);
-
-            if (exc != null) {
-                builder.setMessage(exc.getMessage());
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }else{
-                builder.setMessage("Data load successfuly");
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                //for(PositionDTO poz:positions) {
-                    //mMap.addMarker(new MarkerOptions().position(new LatLng(poz.getxPosition(), poz.getyPosition())).title(poz.getIdUser().toString()));
-                //}
-            }
-        }
-    };
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        showMessageUtil = new ShowMessageUtil(handler,MapsActivity.this);
 
         final Long groupId = getIntent().getLongExtra("groupId",1);
 
@@ -77,17 +63,17 @@ public class MapsActivity extends FragmentActivity {
                         public void run() {
                             mMap.clear();
                             for(PositionDTO poz:positions) {
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(poz.getxPosition(), poz.getyPosition())).title(poz.getIdUser().toString()));
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(poz.getxPosition(), poz.getyPosition())).title(poz.getEmail().toString()));
                             }
                         }
                     });
 
                 } catch (GroupManagerClientException e) {
-                    exc = e;
+                    showMessageUtil.showToast("Failed to get data", Toast.LENGTH_SHORT);
                 }
-                handler.sendEmptyMessage(0);
+
             }
-        },0,20, TimeUnit.SECONDS);
+        },0,30, TimeUnit.SECONDS);
     }
 
     @Override
@@ -132,5 +118,25 @@ public class MapsActivity extends FragmentActivity {
      */
     private void setUpMap() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_home: {
+                Intent intent = new Intent(MapsActivity.this,MainMenuActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

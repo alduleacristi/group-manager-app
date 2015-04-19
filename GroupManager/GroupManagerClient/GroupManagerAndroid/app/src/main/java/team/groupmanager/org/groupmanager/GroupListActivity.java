@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.groupmanager.team.dto.GroupDTO;
 import org.groupmanager.team.dto.UserDTO;
@@ -24,6 +27,8 @@ import team.groupmanager.org.communications.GroupCommunications;
 import team.groupmanager.org.communications.LoginCommunications;
 import team.groupmanager.org.exceptions.GroupManagerClientException;
 import team.groupmanager.org.adapters.ChooseGroupArrayAdapter;
+import team.groupmanager.org.util.SharedPreferencesUtil;
+import team.groupmanager.org.util.ShowMessageUtil;
 
 /**
  * Created by Cristi on 4/5/2015.
@@ -31,33 +36,24 @@ import team.groupmanager.org.adapters.ChooseGroupArrayAdapter;
 public class GroupListActivity extends ListActivity {
     private List<GroupDTO> groups = new ArrayList<>();
     private GroupManagerClientException exc;
+    private SharedPreferencesUtil sharedPreferencesUtil;
+    private ShowMessageUtil showMessageUtil;
+    private String email;
 
-    private final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(final Message message) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(
-                    GroupListActivity.this);
-
-            if (exc != null) {
-                builder.setMessage(exc.getMessage());
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }else{
-                builder.setMessage("Data load successfuly");
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-                //for(PositionDTO poz:positions) {
-                //mMap.addMarker(new MarkerOptions().position(new LatLng(poz.getxPosition(), poz.getyPosition())).title(poz.getIdUser().toString()));
-                //}
-            }
-        }
-    };
+    private final Handler handler = new Handler();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPreferencesUtil = new SharedPreferencesUtil(GroupListActivity.this);
+        showMessageUtil = new ShowMessageUtil(handler,GroupListActivity.this);
+        email = sharedPreferencesUtil.getEmail();
+
+        ListView lv = getListView();
+        LayoutInflater inflater = getLayoutInflater();
+        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.group_type_view_group_layout, lv, false);
+        lv.addHeaderView(header);
+
         Runnable runnable = new Runnable() {
 
             public void run() {
@@ -65,7 +61,7 @@ public class GroupListActivity extends ListActivity {
 
                 try {
                      groups = groupCommunications
-                            .getGroupForUser("alduleacristi@yahoo.com",
+                            .getGroupForUser(email,
                                     "http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/security/groups/getGroups");
 
                     runOnUiThread(new Runnable() {
@@ -76,9 +72,9 @@ public class GroupListActivity extends ListActivity {
                         }
                     });
                 } catch (GroupManagerClientException e) {
-                    exc = e;
+                    showMessageUtil.showToast("Failed to get data", Toast.LENGTH_SHORT);
                 }
-                handler.sendEmptyMessage(0);
+
             }
         };
 
@@ -93,6 +89,26 @@ public class GroupListActivity extends ListActivity {
         GroupDTO group = (GroupDTO) getListAdapter().getItem(position);
         intent.putExtra("groupId",group.getId());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_group_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_home: {
+                Intent intent = new Intent(GroupListActivity.this,MainMenuActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

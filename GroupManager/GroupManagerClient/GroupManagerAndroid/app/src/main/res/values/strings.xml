@@ -4,7 +4,8 @@
     <string name="title_activity_choose_group">Choose a group</string>
     <string name="app_name">GroupManager</string>
     <string name="hello">Hello groupmanager-client!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_home">Home</string>
+    <string name="action_logout">Logut</string>
     <string name="hello_world">Hello world!</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
@@ -18,4 +19,6 @@
     <string name="title_activity_add_user_to_group">AddUserToGroup</string>
     <string name="title_activity_choose_group_to_add_users">Choose group to add users</string>
     <string name="title_activity_create_group">Create group</string>
+    <string name="title_activity_choose_group_to_remove_user">ChooseGroupToRemoveUser</string>
+    <string name="action_settings">Settings</string>
 </resources>
