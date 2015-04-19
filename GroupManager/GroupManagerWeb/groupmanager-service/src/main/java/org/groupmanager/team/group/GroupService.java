@@ -38,4 +38,32 @@ public class GroupService {
 		return user.getGroups();
 	}
 
+	public void addUsersToGroup(Group group, List<User> users) {
+		for (User user : users)
+			group.addUserToGroup(user);
+		em.merge(group);
+		em.flush();
+	}
+
+	public void removeUsersFromGroup(Group group, List<User> users) {
+		for (User user : users)
+			group.removeUserFromGroup(user);
+		em.merge(group);
+		em.flush();
+	}
+
+	public Group getGroupById(long id) {
+		return em.find(Group.class, id);
+	}
+
+	public Group getGroupByName(String name) {
+		@SuppressWarnings("unchecked")
+		List<Group> groups = em.createQuery("select g from Group g where g.name = :name")
+				.setParameter("name", name).getResultList();
+
+		if(groups != null && groups.size() > 0)
+			return groups.get(0);
+		return null;
+	}
+
 }

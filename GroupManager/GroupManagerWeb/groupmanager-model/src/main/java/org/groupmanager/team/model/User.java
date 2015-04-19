@@ -15,8 +15,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "gm_user")
 public class User {
-	public static final String GET_USERS_BY_EMAIL = "from User u where u.email like :email";
-
 	private Long id;
 	private String email;
 	private String firstname;
@@ -84,5 +82,30 @@ public class User {
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
 	}
 }

@@ -1,16 +1,9 @@
 package org.groupmanager.team.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "gm_group")
@@ -61,8 +54,30 @@ public class Group {
 	}
 
 	public void addUserToGroup(User user) {
-		users.add(user);
-		user.getGroups().add(this);
+		if (users == null) {
+			users = new ArrayList<User>();
+		}
+		boolean ok = true;
+		for (User userL : users)
+			if (userL.equals(user))
+				ok = false;
+
+		if (ok) {
+			users.add(user);
+			user.getGroups().add(this);
+		}
+	}
+
+	public void removeUserFromGroup(User user) {
+		if (users != null) {
+			for (int i = 0; i < users.size(); i++) {
+				if (users.get(i).equals(user)) {
+					users.remove(i);
+					user.getGroups().add(this);
+					i--;
+				}
+			}
+		}
 	}
 
 }

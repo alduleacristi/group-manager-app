@@ -7,10 +7,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -22,6 +21,7 @@ import org.groupmanager.team.common.ErrorList;
 import org.groupmanager.team.convertors.UserConvertor;
 import org.groupmanager.team.dto.GroupDTO;
 import org.groupmanager.team.dto.PositionDTO;
+import org.groupmanager.team.dto.UserDTO;
 import org.groupmanager.team.group.GroupService;
 import org.groupmanager.team.model.Group;
 import org.groupmanager.team.model.User;
@@ -42,6 +42,7 @@ public class GroupWebService {
 	@POST
 	@Path("/addGroup")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response addGroup(InputStream incomingData) {
 		ObjectMapper objMapper = new ObjectMapper();
 		GroupManagerGroupResponse response = new GroupManagerGroupResponse();
@@ -51,14 +52,25 @@ public class GroupWebService {
 			logger.info("User with email: " + groupDTO.getOwner().getEmail()
 					+ " try to create a new group with name: "
 					+ groupDTO.getName());
-			Group group = new Group();
-			group.setName(groupDTO.getName());
-			User owner = userService.getUserByEmail(groupDTO.getOwner()
-					.getEmail());
-			group.setOwner(owner);
-			Long groupId = groupService.addGroup(group);
-			response.setMessage("Group was created succesfully");
-			response.setGroupId(groupId);
+			Group oldGroup = groupService.getGroupByName(groupDTO.getName());
+			if (oldGroup != null) {
+				logger.info("Group with name: " + groupDTO.getName()
+						+ " already exist");
+				response.setErrorMessage("Group with name: " + groupDTO.getName()
+						+ " already exist");
+				response.setError(ErrorList.DUPLICATE_GROUP);
+			} else {
+				Group group = new Group();
+				group.setName(groupDTO.getName());
+				User owner = userService.getUserByEmail(groupDTO.getOwner()
+						.getEmail());
+				group.setOwner(owner);
+				group.addUserToGroup(owner);
+				Long groupId = groupService.addGroup(group);
+				logger.info("Group was created with succes");
+				response.setMessage("Group was created succesfully");
+				response.setGroupId(groupId);
+			}
 
 			String result = null;
 			result = objMapper.writeValueAsString(response);
@@ -95,7 +107,7 @@ public class GroupWebService {
 			List<User> users = groupService.getUserForGroup(idGroup);
 			List<PositionDTO> positions = new ArrayList<PositionDTO>();
 			for (User user : users) {
-				PositionDTO poz = new PositionDTO(user.getId(), user
+				PositionDTO poz = new PositionDTO(user.getEmail(), user
 						.getPosition().getxCoordonate(), user.getPosition()
 						.getyCoordonate());
 				positions.add(poz);
@@ -130,11 +142,9 @@ public class GroupWebService {
 	public Response getGroupsForUser(InputStream incomingData) {
 		ObjectMapper objMapper = new ObjectMapper();
 		GroupManagerGroupResponse response = new GroupManagerGroupResponse();
-		
+
 		try {
-			String email = objMapper.readValue(incomingData,
-					String.class);
-			System.out.println("!!!! Email recived!!!!: "+email);
+			String email = objMapper.readValue(incomingData, String.class);
 			List<Group> groups = groupService.getGroupForUser(email);
 			List<GroupDTO> groupsDTO = new ArrayList<GroupDTO>();
 
@@ -142,12 +152,13 @@ public class GroupWebService {
 				GroupDTO groupDTO = new GroupDTO();
 				groupDTO.setId(group.getId());
 				groupDTO.setName(group.getName());
-				groupDTO.setOwner(UserConvertor.convertToUserDTO(group.getOwner()));
+				groupDTO.setOwner(UserConvertor.convertToUserDTO(group
+						.getOwner()));
 				groupsDTO.add(groupDTO);
 			}
 
 			response.setGroups(groupsDTO);
-			
+
 			String result = objMapper.writeValueAsString(response);
 			return Response.status(200).entity(result).build();
 		} catch (JsonGenerationException e) {
@@ -164,6 +175,100 @@ public class GroupWebService {
 					.entity(response).build();
 		} catch (IOException e) {
 			logger.error("Group can not be parsed from JSON in getGroups method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		}
+	}
+
+	@POST
+	@Path("/addUsersToGroup")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addUsersToGroup(InputStream incomingData) {
+		ObjectMapper objMapper = new ObjectMapper();
+		GroupManagerGroupResponse response = new GroupManagerGroupResponse();
+		logger.info("Try to add user to group");
+		try {
+			GroupDTO groupDTO = objMapper.readValue(incomingData,
+					GroupDTO.class);
+
+			Group group = groupService.getGroupById(groupDTO.getId());
+			List<User> users = new ArrayList<User>();
+			List<UserDTO> usersDTO = groupDTO.getUsers();
+			for (UserDTO userDTO : usersDTO) {
+				User user = userService.getUserByEmail(userDTO.getEmail());
+				users.add(user);
+			}
+
+			groupService.addUsersToGroup(group, users);
+			logger.info("Users added successfully");
+			response.setMessage("Users added with success");
+
+			String result = objMapper.writeValueAsString(response);
+			return Response.status(200).entity(result).build();
+		} catch (JsonGenerationException e) {
+			logger.error("Group can not be parsed from JSON in addGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		} catch (JsonMappingException e) {
+			logger.error("Group can not be parsed from JSON in addGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		} catch (IOException e) {
+			logger.error("Group can not be parsed from JSON in addGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		}
+	}
+
+	@POST
+	@Path("/removeUsersFromGroup")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response removeUsersFromGroup(InputStream incomingData) {
+		ObjectMapper objMapper = new ObjectMapper();
+		GroupManagerGroupResponse response = new GroupManagerGroupResponse();
+		logger.info("Try to remove user from group");
+		try {
+			GroupDTO groupDTO = objMapper.readValue(incomingData,
+					GroupDTO.class);
+
+			Group group = groupService.getGroupById(groupDTO.getId());
+			List<User> users = new ArrayList<User>();
+			List<UserDTO> usersDTO = groupDTO.getUsers();
+			for (UserDTO userDTO : usersDTO) {
+				User user = userService.getUserByEmail(userDTO.getEmail());
+				users.add(user);
+			}
+
+			groupService.removeUsersFromGroup(group, users);
+			logger.info("Users was removed successfully");
+			response.setMessage("Users removed with success");
+
+			String result = objMapper.writeValueAsString(response);
+			return Response.status(200).entity(result).build();
+		} catch (JsonGenerationException e) {
+			logger.error("Group can not be parsed from JSON in removeUsersFromGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		} catch (JsonMappingException e) {
+			logger.error("Group can not be parsed from JSON in removeUsersFromGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		} catch (IOException e) {
+			logger.error("Group can not be parsed from JSON in removeUsersFromGroup method");
 			response.setError(ErrorList.JSON_PARSER);
 			response.setMessage("Internal problem with the server.");
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

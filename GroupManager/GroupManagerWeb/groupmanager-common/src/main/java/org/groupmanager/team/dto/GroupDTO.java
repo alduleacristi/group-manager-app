@@ -1,9 +1,12 @@
 package org.groupmanager.team.dto;
 
+import java.util.List;
+
 public class GroupDTO {
 	private Long id;
 	private String name;
 	private UserDTO owner;
+	private List<UserDTO> users;
 
 	public Long getId() {
 		return id;
@@ -27,5 +30,13 @@ public class GroupDTO {
 
 	public void setOwner(UserDTO owner) {
 		this.owner = owner;
+	}
+
+	public List<UserDTO> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserDTO> users) {
+		this.users = users;
 	}
 }

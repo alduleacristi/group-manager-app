@@ -28,12 +28,21 @@ public class UserService {
 
 	@SuppressWarnings("unchecked")
 	public List<User> getUsersByEmail(String email) {
-		return em.createQuery(User.GET_USERS_BY_EMAIL)
-				.setParameter("email", email).getResultList();
+		return em.createQuery("select u from User u where u.email like :email")
+				.setParameter("email", "%" + email + "%").getResultList();
 	}
 
 	public User getUserByEmail(String email) {
-		return (User) em.createQuery("select u from User u where u.email = :email")
-				.setParameter("email", email).getSingleResult();
+		@SuppressWarnings("unchecked")
+		List<User> users = em
+				.createQuery("select u from User u where u.email = :email")
+				.setParameter("email", email).getResultList();
+		if(users != null && users.size() > 0)
+			return users.get(0);
+		return null;
+	}
+	
+	public User getUserById(long id){
+		return em.find(User.class, id);
 	}
 }

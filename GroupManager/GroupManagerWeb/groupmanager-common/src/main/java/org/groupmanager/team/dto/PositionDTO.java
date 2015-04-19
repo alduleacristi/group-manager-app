@@ -1,25 +1,17 @@
 package org.groupmanager.team.dto;
 
 public class PositionDTO {
-	Long idUser;
+	String email;
 	Double xPosition, yPosition;
 
-	public PositionDTO(Long idUser, Double xPosition, Double yPosition) {
-		this.idUser = idUser;
+	public PositionDTO(String email, Double xPosition, Double yPosition) {
+		this.email = email;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 	}
 	
 	public PositionDTO(){
 		
-	}
-
-	public Long getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
 	}
 
 	public Double getxPosition() {
@@ -36,6 +28,14 @@ public class PositionDTO {
 
 	public void setyPosition(Double yPosition) {
 		this.yPosition = yPosition;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

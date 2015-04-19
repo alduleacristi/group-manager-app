@@ -21,9 +21,15 @@ public class GroupManagerSession {
 
 	public void addUser(String key, User user) {
 		authenticatedUsers.put(key, user);
+		System.out.println(authenticatedUsers.size());
 	}
 
 	public User getUserByKey(String key) {
 		return authenticatedUsers.get(key);
+	}
+	
+	public void removeUser(String key){
+		authenticatedUsers.remove(key);
+		System.out.println(authenticatedUsers.size());
 	}
 }

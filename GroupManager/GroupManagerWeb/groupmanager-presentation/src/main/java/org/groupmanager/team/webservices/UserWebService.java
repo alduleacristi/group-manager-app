@@ -40,8 +40,8 @@ public class UserWebService {
 		GroupManagerResponseUsers response = new GroupManagerResponseUsers();
 
 		try {
-			UserDTO userDTO = objMapper.readValue(incomingData, UserDTO.class);
-			List<User> users = userService.getUsersByEmail(userDTO.getEmail());
+			String email = objMapper.readValue(incomingData, String.class);
+			List<User> users = userService.getUsersByEmail(email);
 			List<UserDTO> usersDTO = new ArrayList<UserDTO>();
 			for (User user : users)
 				usersDTO.add(UserConvertor.convertToUserDTO(user));
