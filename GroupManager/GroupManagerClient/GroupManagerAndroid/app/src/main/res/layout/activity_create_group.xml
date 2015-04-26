@@ -22,13 +22,16 @@
             android:layout_marginTop="200dp"
             android:hint="Group name" />
 
-        <Button
-            android:layout_width="194dp"
-            android:layout_height="wrap_content"
-            android:text="Create group"
+        <ImageButton
             android:id="@+id/createGroup"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/create_group_buttonx" />
 
         <ProgressBar
             android:id="@+id/progressBarLogin"

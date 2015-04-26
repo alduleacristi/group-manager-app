@@ -16,7 +16,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 import team.groupmanager.org.communications.LoginCommunications;
 import team.groupmanager.org.communications.SendCoordonates;
 import team.groupmanager.org.exceptions.GroupManagerClientException;
+import team.groupmanager.org.util.Constants;
 import team.groupmanager.org.util.SharedPreferencesUtil;
 import team.groupmanager.org.util.ShowMessageUtil;
 
@@ -76,17 +80,17 @@ public class MainMenuActivity extends ActionBarActivity {
                     if (location == null) {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                         if (location == null) {
-                            x = 35;
-                            y = 45;
+                            x = 45;
+                            y = 25;
                             provider = "Default";
                         } else {
-                            x = location.getLongitude();
-                            y = location.getLatitude();
+                            y = location.getLongitude();
+                            x = location.getLatitude();
                             provider = "Network";
                         }
                     } else {
-                        x = location.getLongitude();
-                        y = location.getLatitude();
+                        y = location.getLongitude();
+                        x = location.getLatitude();
                         provider = "GPS";
                     }
                     PositionDTO positionDTO = new PositionDTO();
@@ -96,7 +100,7 @@ public class MainMenuActivity extends ActionBarActivity {
 
                     SendCoordonates sendCoordonates = new SendCoordonates();
                     try {
-                        sendCoordonates.sendLocation(positionDTO, "http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/security/location/updateLocation", savedToken);
+                        sendCoordonates.sendLocation(positionDTO, Constants.URL+"/GroupManager/api/security/location/updateLocation", savedToken);
                         showMessageUtil.showToast("Send location: " + x + " " + y + " " + provider, Toast.LENGTH_SHORT);
                     } catch (GroupManagerClientException e) {
                         showMessageUtil.showToast("Failed to send location."+email, Toast.LENGTH_SHORT);
@@ -115,6 +119,7 @@ public class MainMenuActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main_menu);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -134,11 +139,12 @@ public class MainMenuActivity extends ActionBarActivity {
 
         loginCommunications = new LoginCommunications();
         email = sharedPreferencesUtil.getEmail();
+        String lastName = sharedPreferencesUtil.getLastName();
         TextView helloUser = (TextView) findViewById(R.id.helloUser);
-        helloUser.setText("Hi "+email);
+        helloUser.setText(email);
         startSendLocation();
 
-        final Button viewGroup = (Button) findViewById(R.id.viewGroup);
+        final ImageButton viewGroup = (ImageButton) findViewById(R.id.viewGroup);
         viewGroup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                  Intent intent = new Intent(MainMenuActivity.this,
@@ -147,7 +153,7 @@ public class MainMenuActivity extends ActionBarActivity {
             }
         });
 
-        final Button createGroup = (Button) findViewById(R.id.createGroup);
+        final ImageButton createGroup = (ImageButton) findViewById(R.id.createGroup);
         createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +162,7 @@ public class MainMenuActivity extends ActionBarActivity {
             }
         });
 
-        final Button addUser = (Button) findViewById(R.id.addUserToGroupOption);
+        final ImageButton addUser = (ImageButton) findViewById(R.id.addUserToGroupOption);
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +171,7 @@ public class MainMenuActivity extends ActionBarActivity {
             }
         });
 
-        final Button leaveGroup = (Button) findViewById(R.id.leaveGroupOption);
+        final ImageButton leaveGroup = (ImageButton) findViewById(R.id.leaveGroupOption);
         leaveGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,7 +191,7 @@ public class MainMenuActivity extends ActionBarActivity {
     private void logout(){
         Runnable runnable = new Runnable() {
             @Override
-            public void run() {
+            public void run() { 
                 try {
                     String token = sharedPreferencesUtil.getToken();
                     loginCommunications.logout(token,"http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/logout");

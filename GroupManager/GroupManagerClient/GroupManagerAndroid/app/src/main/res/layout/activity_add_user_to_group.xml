@@ -27,12 +27,17 @@
                 android:id="@+id/emailSearchText"
                 android:hint="Email" />
 
-            <Button
+            <ImageButton
+                android:id="@+id/emailSearchButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search user"
-                android:id="@+id/emailSearchButton"
-                android:layout_weight="1.18" />
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:onClick="onClick"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/search_emailx" />
+
         </LinearLayout>
 
         <TextView

@@ -41,11 +41,26 @@ public class SharedPreferencesUtil {
         return tokenPref.getString("Email", "");
     }
 
+    public String getLastName(){
+        SharedPreferences tokenPref = ctx.getSharedPreferences("LastName",
+                Context.MODE_PRIVATE);
+        return tokenPref.getString("LastName", "");
+    }
+
+
     public void setEmail(String email){
         SharedPreferences tokenPref = ctx.getSharedPreferences("UserEmail",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor tokenEditor = tokenPref.edit();
         tokenEditor.putString("Email", email);
+        tokenEditor.commit();
+    }
+
+    public void setLastName(String LastName){
+        SharedPreferences tokenPref = ctx.getSharedPreferences("LastName",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor tokenEditor = tokenPref.edit();
+        tokenEditor.putString("LastName", LastName);
         tokenEditor.commit();
     }
 

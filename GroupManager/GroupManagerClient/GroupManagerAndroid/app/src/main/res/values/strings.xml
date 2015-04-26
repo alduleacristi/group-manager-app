@@ -2,11 +2,10 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_choose_group">Choose a group</string>
-    <string name="app_name">GroupManager</string>
+    <string name="app_name">Group Tracker</string>
     <string name="hello">Hello groupmanager-client!</string>
     <string name="action_home">Home</string>
-    <string name="action_logout">Logut</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="action_logout">Logout</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="retypepassword_hint">Retype password</string>
@@ -14,7 +13,7 @@
     <string name="createaccount_hint">Create account</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="error_password">Password and retype password must be the same</string>
-    <string name="title_activity_main_menu">MainMenu</string>
+   <!-- <string name="title_activity_main_men">MainMenu</string> -->
     <string name="title_activity_map_view">MapViewA</string>
     <string name="title_activity_add_user_to_group">AddUserToGroup</string>
     <string name="title_activity_choose_group_to_add_users">Choose group to add users</string>

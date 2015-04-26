@@ -17,7 +17,7 @@
 		<asm.version>3.3.1</asm.version>
 		<jersey.bundle>1.18.3</jersey.bundle>
 		<json>20141113</json>
-		<jboss.deploy.folder>d:/Facultate/GroupManager/Software/wildfly-8.2.0.Final/standalone/deployments</jboss.deploy.folder>
+		<jboss.deploy.folder>E:/wildfly-8.2.0.Final/standalone/deployments</jboss.deploy.folder>
 	</properties>
 
 	<dependencies>

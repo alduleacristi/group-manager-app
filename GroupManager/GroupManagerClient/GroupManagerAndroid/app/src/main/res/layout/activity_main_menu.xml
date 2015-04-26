@@ -3,59 +3,64 @@
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
     android:orientation="vertical"
+    android:background="@drawable/bg"
     android:weightSum="1">
 
     <TextView
-        android:layout_width="375dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/helloUser"
-        android:layout_gravity="right"
         android:layout_weight="0.15"
-        android:layout_marginTop="15px"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15px"
         android:gravity="center_vertical|right"
-        android:textColor="#ff000000"
+        android:textColor="#E6E6E6"
         android:textStyle="bold"
         android:layout_marginRight="10px" />
 
-    <Button
+    <ImageButton
         android:id="@+id/createGroup"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="Create a new group"
-        android:layout_weight="0.15"
-        android:textStyle="bold" />
+        android:onClick="onClick"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/create_group_buttonx" />
 
-    <Button
+    <ImageButton
         android:id="@+id/viewGroup"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="View existing group"
-        android:layout_weight="0.15"
-        android:textStyle="bold" />
+        android:onClick="onClick"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/view_existing_groupx" />
 
-    <Button
+    <ImageButton
         android:id="@+id/addUserToGroupOption"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:text="Add users to group"
-        android:layout_weight="0.15"
-        android:textStyle="bold" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:onClick="onClick"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/add_users_to_groupx" />
 
-    <Button
+    <ImageButton
         android:id="@+id/leaveGroupOption"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:text="Leave group"
-        android:layout_weight="0.15"
-        android:textStyle="bold" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:onClick="onClick"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/leave_groupx" />
 
 </LinearLayout>

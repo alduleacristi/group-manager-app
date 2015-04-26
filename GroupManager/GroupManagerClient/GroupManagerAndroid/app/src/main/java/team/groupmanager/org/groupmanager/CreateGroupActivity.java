@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import org.groupmanager.team.responses.GroupManagerGroupResponse;
 
 import team.groupmanager.org.communications.GroupCommunications;
 import team.groupmanager.org.exceptions.GroupManagerClientException;
+import team.groupmanager.org.util.Constants;
 import team.groupmanager.org.util.SharedPreferencesUtil;
 import team.groupmanager.org.util.ShowMessageUtil;
 
@@ -37,13 +39,13 @@ public class CreateGroupActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-
+       // getActionBar().hide();
         showMessageUtil = new ShowMessageUtil(handler,CreateGroupActivity.this);
         sharedPreferencesUtil = new SharedPreferencesUtil(CreateGroupActivity.this);
 
         final EditText groupName = (EditText) findViewById(R.id.groupNameEdit);
-        final Button creatGroup = (Button) findViewById(R.id.createGroup);
-        final Button login = (Button) findViewById(R.id.loginButton);
+        final ImageButton creatGroup = (ImageButton) findViewById(R.id.createGroup);
+        final ImageButton login = (ImageButton) findViewById(R.id.loginButton);
         final ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBarLogin);
 
         creatGroup.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +76,7 @@ public class CreateGroupActivity extends ActionBarActivity {
 
                         try {
                             if(ok) {
-                                GroupManagerGroupResponse response = groupCommunications.createGroup("http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/security/groups/addGroup", groupDTO, token);
+                                GroupManagerGroupResponse response = groupCommunications.createGroup(Constants.URL+"/GroupManager/api/security/groups/addGroup", groupDTO, token);
                                 if (response.getError() == ErrorList.DUPLICATE_GROUP) {
                                     showMessageUtil.showToast("Group with name " + groupDTO.getName() + " already exist.", Toast.LENGTH_SHORT);
                                 }else{

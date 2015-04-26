@@ -27,6 +27,7 @@ import team.groupmanager.org.communications.GroupCommunications;
 import team.groupmanager.org.communications.LoginCommunications;
 import team.groupmanager.org.exceptions.GroupManagerClientException;
 import team.groupmanager.org.adapters.ChooseGroupArrayAdapter;
+import team.groupmanager.org.util.Constants;
 import team.groupmanager.org.util.SharedPreferencesUtil;
 import team.groupmanager.org.util.ShowMessageUtil;
 
@@ -44,7 +45,7 @@ public class GroupListActivity extends ListActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+       // getActionBar().hide();
         sharedPreferencesUtil = new SharedPreferencesUtil(GroupListActivity.this);
         showMessageUtil = new ShowMessageUtil(handler,GroupListActivity.this);
         email = sharedPreferencesUtil.getEmail();
@@ -62,7 +63,7 @@ public class GroupListActivity extends ListActivity {
                 try {
                      groups = groupCommunications
                             .getGroupForUser(email,
-                                    "http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/security/groups/getGroups");
+                                    Constants.URL+"/GroupManager/api/security/groups/getGroups");
 
                     runOnUiThread(new Runnable() {
                         @Override

@@ -41,6 +41,7 @@ public class MapsActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getActionBar().hide();
         setContentView(R.layout.activity_maps);
 
         showMessageUtil = new ShowMessageUtil(handler,MapsActivity.this);

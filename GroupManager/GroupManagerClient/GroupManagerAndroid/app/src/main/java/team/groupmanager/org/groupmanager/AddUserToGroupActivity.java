@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import team.groupmanager.org.communications.GroupCommunications;
 import team.groupmanager.org.communications.LoginCommunications;
 import team.groupmanager.org.communications.UserCommunication;
 import team.groupmanager.org.exceptions.GroupManagerClientException;
+import team.groupmanager.org.util.Constants;
 import team.groupmanager.org.util.SharedPreferencesUtil;
 import team.groupmanager.org.util.ShowMessageUtil;
 
@@ -50,6 +52,7 @@ public class AddUserToGroupActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //getActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user_to_group);
         selectedEmails = new ArrayList<>();
@@ -59,7 +62,7 @@ public class AddUserToGroupActivity extends ListActivity {
         sharedPreferencesUtil = new SharedPreferencesUtil(AddUserToGroupActivity.this);
         token = sharedPreferencesUtil.getToken();
 
-        final Button searchButton = (Button) findViewById(R.id.emailSearchButton);
+        final ImageButton searchButton = (ImageButton) findViewById(R.id.emailSearchButton);
         final EditText searchEmail = (EditText) findViewById(R.id.emailSearchText);
         final Button addUserToGroup = (Button) findViewById(R.id.addSelectedUserToGroup);
 
@@ -84,7 +87,7 @@ public class AddUserToGroupActivity extends ListActivity {
 
                         UserCommunication userCommunication = new UserCommunication();
                         try {
-                            users = userCommunication.getUsersByEmail(email, "http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/security/users/getUsers", "token");
+                            users = userCommunication.getUsersByEmail(email, Constants.URL+ "/GroupManager/api/security/users/getUsers", "token");
 
                             runOnUiThread(new Runnable() {
                                     @Override
@@ -136,7 +139,7 @@ public class AddUserToGroupActivity extends ListActivity {
 
                         GroupCommunications groupCommunications = new GroupCommunications();
                         try {
-                            groupCommunications.addUsersToGroup("http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/security/groups/addUsersToGroup",groupDTO,token);
+                            groupCommunications.addUsersToGroup(Constants.URL+"/GroupManager/api/security/groups/addUsersToGroup",groupDTO,token);
                             showMessageUtil.showToast("Uses added with success.", Toast.LENGTH_SHORT);
                             Intent intent = new Intent(AddUserToGroupActivity.this,MainMenuActivity.class);
                             startActivity(intent);

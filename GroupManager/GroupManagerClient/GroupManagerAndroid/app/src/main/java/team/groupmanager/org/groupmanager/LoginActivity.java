@@ -18,12 +18,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import team.groupmanager.org.communications.LoginCommunications;
 import team.groupmanager.org.exceptions.GroupManagerClientException;
+import team.groupmanager.org.util.Constants;
 import team.groupmanager.org.util.SharedPreferencesUtil;
 import team.groupmanager.org.util.ShowMessageUtil;
 
@@ -56,7 +58,7 @@ public class LoginActivity extends Activity {
 
         final EditText email = (EditText) findViewById(R.id.email);
         final EditText password = (EditText) findViewById(R.id.password);
-        final Button login = (Button) findViewById(R.id.loginButton);
+        final ImageButton login = (ImageButton) findViewById(R.id.loginButton);
         final ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBarLogin);
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +79,9 @@ public class LoginActivity extends Activity {
                         LoginCommunications loginCommunications = new LoginCommunications();
 
                         try {
-                           // GroupManagerResponseLogin response = loginCommunications
-                           //        .login(user,
-                           //                 "http://10.0.2.2:8080/GroupManager/api/login");
                             GroupManagerResponseLogin response = loginCommunications
                                     .login(user,
-                                            "http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/login");
+                                            Constants.URL+"/GroupManager/api/login");
                             if(response.getError() == ErrorList.FAILED_TO_AUTHENTICATE){
                                 showMessageUtil.showToast(response.getErrorMessage(), Toast.LENGTH_SHORT);
                                 return;

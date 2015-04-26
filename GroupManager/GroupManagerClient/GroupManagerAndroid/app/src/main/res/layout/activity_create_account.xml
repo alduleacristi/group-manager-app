@@ -44,13 +44,17 @@
         <requestFocus />
     </EditText>
 
-    <Button
+    <ImageButton
         android:id="@+id/createAccount"
-        android:layout_width="169dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:onClick="onClick"
+        android:background="@android:color/transparent"
         android:layout_marginTop="30dp"
-        android:text="@string/createaccount_hint" />
+        android:src="@drawable/create_accountx" />
+
 
     <ProgressBar
         android:id="@+id/progressBarLogin"
