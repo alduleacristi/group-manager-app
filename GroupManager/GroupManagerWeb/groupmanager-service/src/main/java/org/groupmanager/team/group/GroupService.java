@@ -10,9 +10,13 @@ import javax.persistence.PersistenceContext;
 import org.groupmanager.team.model.Group;
 import org.groupmanager.team.model.User;
 import org.groupmanager.team.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless
 public class GroupService {
+	private Logger logger = LoggerFactory.getLogger(GroupService.class);
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -52,16 +56,46 @@ public class GroupService {
 		em.flush();
 	}
 
+	public void addUsersToPendingGroup(Group group, List<User> users) {
+		Group newGroup = em.find(Group.class, group.getId());
+		for (User user : users) {
+			newGroup.getPendingUsers().add(user);
+			user.getGroups().add(newGroup);
+		}
+		em.merge(newGroup);
+		em.flush();
+	}
+
+	public void acceptPendingGroup(List<Group> groups, User user) {
+		User newUser = userService.getUserByEmail(user.getEmail());
+		for (Group group : groups) {
+			Group newGroup = em.find(Group.class, group.getId());
+			//newGroup.getUsers().add(newUser);
+			//newUser.getGroups().add(newGroup);
+			newGroup.addUserToGroup(newUser);
+			
+			newGroup.getPendingUsers().remove(newUser);
+			newUser.getPendingGroups().remove(newGroup);
+			
+			em.merge(newGroup);
+			logger.info("Dupa merge");
+		}
+
+		em.flush();
+
+	}
+
 	public Group getGroupById(long id) {
 		return em.find(Group.class, id);
 	}
 
 	public Group getGroupByName(String name) {
 		@SuppressWarnings("unchecked")
-		List<Group> groups = em.createQuery("select g from Group g where g.name = :name")
+		List<Group> groups = em
+				.createQuery("select g from Group g where g.name = :name")
 				.setParameter("name", name).getResultList();
 
-		if(groups != null && groups.size() > 0)
+		if (groups != null && groups.size() > 0)
 			return groups.get(0);
 		return null;
 	}
