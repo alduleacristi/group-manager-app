@@ -21,6 +21,7 @@ public class User {
 	private String lastname;
 	private String password;
 	private List<Group> groups;
+	private List<Group> pendingGroups;
 	private Position position;
 
 	@Id
@@ -82,6 +83,15 @@ public class User {
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	@ManyToMany(mappedBy = "pendingUsers", fetch = FetchType.LAZY)
+	public List<Group> getPendingGroups() {
+		return pendingGroups;
+	}
+
+	public void setPendingGroups(List<Group> pendingGroups) {
+		this.pendingGroups = pendingGroups;
 	}
 
 	@Override

@@ -228,6 +228,54 @@ public class GroupWebService {
 					.entity(response).build();
 		}
 	}
+	
+	@POST
+	@Path("/acceptPendingGroup")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response acceptAddToGroup(InputStream incomingData) {
+		ObjectMapper objMapper = new ObjectMapper();
+		GroupManagerGroupResponse response = new GroupManagerGroupResponse();
+		logger.info("Try to add user to group");
+		try {
+			@SuppressWarnings("unchecked")
+			UserDTO userDTO = objMapper.readValue(incomingData,
+					UserDTO.class);
+
+			List<GroupDTO> groupsDTO = userDTO.getPendingGroups();
+			List<Group> groups = new ArrayList<Group>();
+			for(GroupDTO groupDTO:groupsDTO){
+				Group group = groupService.getGroupById(groupDTO.getId());
+				groups.add(group);
+			}
+
+			User user = userService.getUserByEmail(userDTO.getEmail());
+			groupService.acceptPendingGroup(groups, user);
+			logger.info("Users added successfully");
+			response.setMessage("Users added with success");
+
+			String result = objMapper.writeValueAsString(response);
+			return Response.status(200).entity(result).build();
+		} catch (JsonGenerationException e) {
+			logger.error("Group can not be parsed from JSON in acceptAddToGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		} catch (JsonMappingException e) {
+			logger.error("Group can not be parsed from JSON in acceptAddToGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		} catch (IOException e) {
+			logger.error("Group can not be parsed from JSON in acceptAddToGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		}
+	}
 
 	@POST
 	@Path("/removeUsersFromGroup")
@@ -269,6 +317,53 @@ public class GroupWebService {
 					.entity(response).build();
 		} catch (IOException e) {
 			logger.error("Group can not be parsed from JSON in removeUsersFromGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		}
+	}
+	
+	@POST
+	@Path("/addUsersToPendingGroup")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addUsersToPendingGroup(InputStream incomingData) {
+		ObjectMapper objMapper = new ObjectMapper();
+		GroupManagerGroupResponse response = new GroupManagerGroupResponse();
+		logger.info("Try to add user to group");
+		try {
+			GroupDTO groupDTO = objMapper.readValue(incomingData,
+					GroupDTO.class);
+
+			Group group = groupService.getGroupById(groupDTO.getId());
+			List<User> users = new ArrayList<User>();
+			List<UserDTO> usersDTO = groupDTO.getUsers();
+			for (UserDTO userDTO : usersDTO) {
+				User user = userService.getUserByEmail(userDTO.getEmail());
+				users.add(user);
+			}
+
+			groupService.addUsersToPendingGroup(group, users);
+			logger.info("Users added successfully");
+			response.setMessage("Users added with success");
+
+			String result = objMapper.writeValueAsString(response);
+			return Response.status(200).entity(result).build();
+		} catch (JsonGenerationException e) {
+			logger.error("Group can not be parsed from JSON in addGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		} catch (JsonMappingException e) {
+			logger.error("Group can not be parsed from JSON in addGroup method");
+			response.setError(ErrorList.JSON_PARSER);
+			response.setMessage("Internal problem with the server.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(response).build();
+		} catch (IOException e) {
+			logger.error("Group can not be parsed from JSON in addGroup method");
 			response.setError(ErrorList.JSON_PARSER);
 			response.setMessage("Internal problem with the server.");
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

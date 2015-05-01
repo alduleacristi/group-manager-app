@@ -1,5 +1,7 @@
 package org.groupmanager.team.dto;
 
+import java.util.List;
+
 public class UserDTO {
 
 	private Long id;
@@ -7,6 +9,7 @@ public class UserDTO {
 	private String firstName;
 	private String lastName;
 	private String password;
+	private List<GroupDTO> pendingGroups;
 
 	public UserDTO() {
 
@@ -50,6 +53,14 @@ public class UserDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<GroupDTO> getPendingGroups() {
+		return pendingGroups;
+	}
+
+	public void setPendingGroups(List<GroupDTO> pendingGroups) {
+		this.pendingGroups = pendingGroups;
 	}
 
 }
