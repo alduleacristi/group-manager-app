@@ -87,7 +87,7 @@ public class GroupListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(GroupListActivity.this,
                 MapsActivity.class);
-        GroupDTO group = (GroupDTO) getListAdapter().getItem(position);
+        GroupDTO group = (GroupDTO) getListAdapter().getItem(position-1);
         intent.putExtra("groupId",group.getId());
         startActivity(intent);
     }

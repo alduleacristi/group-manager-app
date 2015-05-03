@@ -64,7 +64,7 @@ public class AddUserToGroupActivity extends ListActivity {
 
         final ImageButton searchButton = (ImageButton) findViewById(R.id.emailSearchButton);
         final EditText searchEmail = (EditText) findViewById(R.id.emailSearchText);
-        final Button addUserToGroup = (Button) findViewById(R.id.addSelectedUserToGroup);
+        final ImageButton addUserToGroup = (ImageButton) findViewById(R.id.addSelectedUserToGroup);
 
         searchEmail.setOnClickListener(new View.OnClickListener() {
             @Override

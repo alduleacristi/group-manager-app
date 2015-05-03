@@ -139,7 +139,7 @@ public class MainMenuActivity extends ActionBarActivity {
 
         loginCommunications = new LoginCommunications();
         email = sharedPreferencesUtil.getEmail();
-        String lastName = sharedPreferencesUtil.getLastName();
+       // String lastName = sharedPreferencesUtil.getLastName();
         TextView helloUser = (TextView) findViewById(R.id.helloUser);
         helloUser.setText(email);
         startSendLocation();

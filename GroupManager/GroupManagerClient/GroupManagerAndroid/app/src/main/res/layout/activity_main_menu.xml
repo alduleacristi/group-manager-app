@@ -7,15 +7,13 @@
     android:weightSum="1">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/helloUser"
-        android:layout_weight="0.15"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15px"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical|right"
-        android:textColor="#E6E6E6"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:layout_marginRight="10px" />
 
@@ -27,7 +25,7 @@
         android:layout_gravity="center"
         android:onClick="onClick"
         android:background="@android:color/transparent"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/create_group_buttonx" />
 
     <ImageButton
@@ -38,7 +36,7 @@
         android:layout_gravity="center"
         android:onClick="onClick"
         android:background="@android:color/transparent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/view_existing_groupx" />
 
     <ImageButton
@@ -49,7 +47,7 @@
         android:layout_gravity="center"
         android:onClick="onClick"
         android:background="@android:color/transparent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/add_users_to_groupx" />
 
     <ImageButton
@@ -60,7 +58,7 @@
         android:layout_gravity="center"
         android:onClick="onClick"
         android:background="@android:color/transparent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/leave_groupx" />
 
 </LinearLayout>

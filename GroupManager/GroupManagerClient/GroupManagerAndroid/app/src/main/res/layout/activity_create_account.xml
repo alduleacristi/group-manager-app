@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg"
     tools:context="org.groupmanager.team.groupmanager_client.CreateAccountActivity" >
 
     <EditText
@@ -17,7 +18,8 @@
         android:layout_marginTop="70dp"
         android:inputType="text"
         android:ems="10"
-        android:hint="@string/email_hint" >
+        android:hint="@string/email_hint"
+        android:textColor="#FFFFFF">
 
         <requestFocus />
     </EditText>
@@ -28,7 +30,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:hint="@string/password_hint" >
+        android:hint="@string/password_hint"
+        android:textColor="#FFFFFF">
 
         <requestFocus />
     </EditText>
@@ -39,7 +42,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:hint="@string/retypepassword_hint" >
+        android:hint="@string/retypepassword_hint"
+        android:textColor="#FFFFFF">
 
         <requestFocus />
     </EditText>
@@ -54,7 +58,6 @@
         android:background="@android:color/transparent"
         android:layout_marginTop="30dp"
         android:src="@drawable/create_accountx" />
-
 
     <ProgressBar
         android:id="@+id/progressBarLogin"
