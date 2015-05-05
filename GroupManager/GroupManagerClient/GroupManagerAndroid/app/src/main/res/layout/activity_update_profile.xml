@@ -18,27 +18,16 @@
     android:layout_marginRight="10px"
         android:layout_gravity="right" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical|left"
-        android:textColor="#ffffd39f"
-        android:text="Update Profile"
-        android:textIsSelectable="false"
-        android:layout_marginLeft="10dp"
-        android:textSize="50dp"
-        android:textStyle="bold" />
-
-    <!--android:background="@android:color/transparent"-->
-    <!--android:src="@drawable/update_Profilex" />-->
+        android:background="@drawable/update_title"/>
 
     <EditText
         android:id="@+id/textFirstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:inputType="text"
         android:ems="10"
         android:hint="@string/new_fist_name_hint"
@@ -110,8 +99,11 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:onClick="onClick"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0.13" />
+        android:layout_marginTop="50dp"
+        android:layout_weight="0.13"
+        android:background="@android:color/transparent"
+        android:src="@drawable/update_profilex" />
+        />
 
 
 </LinearLayout>

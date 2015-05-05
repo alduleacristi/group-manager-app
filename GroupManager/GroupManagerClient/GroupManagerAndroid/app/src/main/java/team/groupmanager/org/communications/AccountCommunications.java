@@ -50,4 +50,33 @@ public class AccountCommunications {
         }
     }
 
+    public GroupManagerResponse updateUser(UserDTO userDTO, String url, String token) throws GroupManagerClientException {
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(20, TimeUnit.SECONDS);
+        client.setReadTimeout(20, TimeUnit.SECONDS);
+        ObjectMapper objMapper = new ObjectMapper();
+
+        String jsonString;
+        try {
+            jsonString = objMapper.writeValueAsString(userDTO);
+            System.out.println(jsonString);
+            RequestBody body = RequestBody.create(JSON, jsonString);
+            Request request = new Request.Builder().addHeader("Authorization", token).url(url).post(body).build();
+            Response response = client.newCall(request).execute();
+            System.out.println(response.isSuccessful());
+
+            GroupManagerResponse responseGroup = objMapper.readValue(
+                    response.body().byteStream(),
+                    GroupManagerResponse.class);
+            return responseGroup;
+        } catch (JsonGenerationException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (JsonMappingException e) {
+            throw new GroupManagerClientException("Failed to authenticate");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new GroupManagerClientException("Failed to authenticate");
+        }
+    }
+
 }
