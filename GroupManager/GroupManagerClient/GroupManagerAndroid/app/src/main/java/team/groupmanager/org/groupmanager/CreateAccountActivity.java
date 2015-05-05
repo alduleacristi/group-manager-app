@@ -33,7 +33,7 @@ public class CreateAccountActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-       // getActionBar().hide();
+        getSupportActionBar().hide();
         showMessageUtil = new ShowMessageUtil(handler,CreateAccountActivity.this);
 
         final EditText email = (EditText) findViewById(R.id.textEmail);
@@ -75,8 +75,8 @@ public class CreateAccountActivity extends ActionBarActivity {
                                 UserDTO userDTO = new UserDTO();
                                 userDTO.setEmail(email.getText().toString());
                                 userDTO.setPassword(pass.getText().toString());
-                                userDTO.setFirstName("F");
-                                userDTO.setLastName("B");
+                                //userDTO.setFirstName("F");
+                                //userDTO.setLastName("B");
 
                                 accountCommunications.sendAddAccount(userDTO, Constants.URL+"/GroupManager/api/users/addUser");
                                 Intent intent = new Intent(CreateAccountActivity.this,LoginActivity.class);

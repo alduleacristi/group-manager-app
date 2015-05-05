@@ -34,6 +34,10 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
+            android:name=".UpdateProfileActivity"
+            android:label="@string/title_activity_update_profile" >
+        </activity>
+        <activity
             android:name=".CreateAccountActivity"
             android:label="@string/title_activity_create_account" >
         </activity>

@@ -79,7 +79,7 @@ public class ChooseGroupToAddUsersActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(ChooseGroupToAddUsersActivity.this,
                 AddUserToGroupActivity.class);
-        GroupDTO group = (GroupDTO) getListAdapter().getItem(position);
+        GroupDTO group = (GroupDTO) getListAdapter().getItem(position-1);
         intent.putExtra("groupId",group.getId());
 
         startActivity(intent);

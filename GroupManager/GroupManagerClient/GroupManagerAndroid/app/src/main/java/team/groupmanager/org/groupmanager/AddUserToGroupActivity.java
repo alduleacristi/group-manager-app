@@ -120,7 +120,7 @@ public class AddUserToGroupActivity extends ListActivity {
             }
         });
 
-        final Button addUser = (Button) findViewById(R.id.addSelectedUserToGroup);
+        final ImageButton addUser = (ImageButton) findViewById(R.id.addSelectedUserToGroup);
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

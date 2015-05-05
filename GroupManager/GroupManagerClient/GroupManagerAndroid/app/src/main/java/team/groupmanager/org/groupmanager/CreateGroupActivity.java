@@ -1,5 +1,6 @@
 package team.groupmanager.org.groupmanager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -27,7 +28,7 @@ import team.groupmanager.org.util.SharedPreferencesUtil;
 import team.groupmanager.org.util.ShowMessageUtil;
 
 
-public class CreateGroupActivity extends ActionBarActivity {
+public class CreateGroupActivity extends Activity {
     private String msg;
     private GroupManagerClientException exc;
     private ShowMessageUtil showMessageUtil;
@@ -39,13 +40,13 @@ public class CreateGroupActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-       // getActionBar().hide();
+        // getActionBar().hide();
         showMessageUtil = new ShowMessageUtil(handler,CreateGroupActivity.this);
         sharedPreferencesUtil = new SharedPreferencesUtil(CreateGroupActivity.this);
 
         final EditText groupName = (EditText) findViewById(R.id.groupNameEdit);
         final ImageButton creatGroup = (ImageButton) findViewById(R.id.createGroup);
-        final ImageButton login = (ImageButton) findViewById(R.id.loginButton);
+        //final ImageButton login = (ImageButton) findViewById(R.id.loginButton);
         final ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBarLogin);
 
         creatGroup.setOnClickListener(new View.OnClickListener() {

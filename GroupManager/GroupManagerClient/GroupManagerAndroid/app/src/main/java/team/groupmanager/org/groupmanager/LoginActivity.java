@@ -13,6 +13,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -29,7 +30,7 @@ import team.groupmanager.org.util.Constants;
 import team.groupmanager.org.util.SharedPreferencesUtil;
 import team.groupmanager.org.util.ShowMessageUtil;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends ActionBarActivity {
     private GroupManagerClientException exc;
     private SharedPreferencesUtil sharedPreferencesUtil;
     private ShowMessageUtil showMessageUtil;
@@ -50,7 +51,7 @@ public class LoginActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
 
         sharedPreferencesUtil = new SharedPreferencesUtil(LoginActivity.this);
@@ -111,7 +112,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-        TextView textView = (TextView) findViewById(R.id.createAccount);
+        ImageButton textView = (ImageButton) findViewById(R.id.createAccount);
         textView.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {

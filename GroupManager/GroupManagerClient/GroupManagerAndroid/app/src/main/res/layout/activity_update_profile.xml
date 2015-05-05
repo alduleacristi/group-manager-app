@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+    android:weightSum="1">
+
+    <TextView
+    android:layout_width="178dp"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:id="@+id/helloUser"
+    android:layout_marginTop="10dp"
+    android:gravity="center_vertical|right"
+    android:textColor="#FFFFFF"
+    android:textStyle="bold"
+    android:layout_marginRight="10px"
+        android:layout_gravity="right" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical|left"
+        android:textColor="#ffffd39f"
+        android:text="Update Profile"
+        android:textIsSelectable="false"
+        android:layout_marginLeft="10dp"
+        android:textSize="50dp"
+        android:textStyle="bold" />
+
+    <!--android:background="@android:color/transparent"-->
+    <!--android:src="@drawable/update_Profilex" />-->
+
+    <EditText
+        android:id="@+id/textFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:ems="10"
+        android:hint="@string/new_fist_name_hint"
+        android:textColorHint="#ffc9bfcc"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp">
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/textLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"
+        android:ems="10"
+        android:hint="@string/new_last_name_hint"
+        android:textColorHint="#ffc9bfcc"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp">
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/new_Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"
+        android:ems="10"
+        android:hint="@string/email_hint"
+        android:textColorHint="#ffc9bfcc"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp">
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/new_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="@string/new_password_hint"
+        android:textColorHint="#ffc9bfcc"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp">
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/new_retyped_Password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/retype_password_hint"
+        android:textColorHint="#ffc9bfcc"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp">
+
+        <requestFocus />
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/UpdateProfile"
+        android:layout_width="988dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:onClick="onClick"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.13" />
+
+
+</LinearLayout>

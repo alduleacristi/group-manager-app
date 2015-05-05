@@ -38,7 +38,7 @@ public class ChooseGroupArrayAdapter extends ArrayAdapter<GroupDTO> {
 
         GroupDTO selectedGroup = groups.get(position);
         groupName.setText(selectedGroup.getName());
-        groupOwner.setText("-"+selectedGroup.getOwner().getEmail());
+        groupOwner.setText(selectedGroup.getOwner().getEmail());
 
         return  rowView;
     }

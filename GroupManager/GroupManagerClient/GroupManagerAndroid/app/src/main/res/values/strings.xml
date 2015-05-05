@@ -5,15 +5,21 @@
     <string name="app_name">Group Tracker</string>
     <string name="hello">Hello groupmanager-client!</string>
     <string name="action_home">Home</string>
+    <string name="action_profile">Profile</string>
     <string name="action_logout">Logout</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
-    <string name="retypepassword_hint">Retype password</string>
+    <string name="retype_password_hint">Retype Password</string>
+    <string name="new_password_hint">New Password</string>
+    <string name="new_email_hint">New Email</string>
+    <string name="new_fist_name_hint">New First Name</string>
+    <string name="new_last_name_hint">New Last Name</string>
+
     <string name="login_btn">Login</string>
     <string name="createaccount_hint">Create account</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="error_password">Password and retype password must be the same</string>
-   <!-- <string name="title_activity_main_men">MainMenu</string> -->
+    <string name="title_activity_update_profile">Update Profile</string>
     <string name="title_activity_map_view">MapViewA</string>
     <string name="title_activity_add_user_to_group">AddUserToGroup</string>
     <string name="title_activity_choose_group_to_add_users">Choose group to add users</string>

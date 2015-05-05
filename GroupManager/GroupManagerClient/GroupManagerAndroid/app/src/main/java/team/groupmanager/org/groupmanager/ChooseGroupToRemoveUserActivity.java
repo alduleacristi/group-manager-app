@@ -82,8 +82,7 @@ public class ChooseGroupToRemoveUserActivity extends ListActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                GroupDTO groupDTO = new GroupDTO();
-                groupDTO.setId(groups.get(position - 1).getId());
+                GroupDTO groupDTO = (GroupDTO) getListAdapter().getItem(position-1);
                 List<UserDTO> usersDTO = new ArrayList<UserDTO>();
                 UserDTO userDTO = new UserDTO();
                 userDTO.setEmail(email);
@@ -92,7 +91,7 @@ public class ChooseGroupToRemoveUserActivity extends ListActivity {
 
                 GroupCommunications groupCommunications = new GroupCommunications();
                 try {
-                    groupCommunications.addUsersToGroup("http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/security/groups/removeUsersFromGroup",groupDTO,token);
+                    groupCommunications.addUsersToGroup(Constants.URL+"/GroupManager/api/security/groups/removeUsersFromGroup",groupDTO,token);
                     showMessageUtil.showToast("Uses removed with success.", Toast.LENGTH_SHORT);
                     Intent intent = new Intent(ChooseGroupToRemoveUserActivity.this,MainMenuActivity.class);
                     startActivity(intent);

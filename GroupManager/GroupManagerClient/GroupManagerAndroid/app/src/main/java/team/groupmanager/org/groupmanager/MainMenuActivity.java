@@ -1,24 +1,18 @@
 package team.groupmanager.org.groupmanager;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -194,7 +188,7 @@ public class MainMenuActivity extends ActionBarActivity {
             public void run() { 
                 try {
                     String token = sharedPreferencesUtil.getToken();
-                    loginCommunications.logout(token,"http://groupmanagerservices-groupmanagerweb.rhcloud.com/GroupManager/api/logout");
+                    loginCommunications.logout(token,Constants.URL+"/GroupManager/api/logout");
                     sharedPreferencesUtil.deleteToken();
                     sharedPreferencesUtil.deleteEmail();
                     Intent intent = new Intent(MainMenuActivity.this,LoginActivity.class);
@@ -230,6 +224,11 @@ public class MainMenuActivity extends ActionBarActivity {
         switch(item.getItemId()){
             case R.id.action_home: {
                 Intent intent = new Intent(MainMenuActivity.this,MainMenuActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.action_profile:{
+                Intent intent = new Intent(MainMenuActivity.this,UpdateProfileActivity.class);
                 startActivity(intent);
                 return true;
             }

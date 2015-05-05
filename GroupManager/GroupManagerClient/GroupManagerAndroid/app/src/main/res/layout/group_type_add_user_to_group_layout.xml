@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:weightSum="1">
 
     <TextView
@@ -15,7 +14,36 @@
         android:layout_weight="0.02"
         android:gravity="center_horizontal"
         android:textStyle="bold"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/background_dark"
         android:layout_marginTop="10px"
         android:layout_marginBottom="30px" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Group Name"
+            android:id="@+id/grpName"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="194dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Owner"
+            android:id="@+id/owner"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_dark"/>
+    </LinearLayout>
+
 </LinearLayout>

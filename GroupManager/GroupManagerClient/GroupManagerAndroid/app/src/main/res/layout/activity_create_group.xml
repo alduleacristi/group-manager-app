@@ -23,7 +23,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="200dp"
             android:hint="Group name"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"/>
 
         <ImageButton
             android:id="@+id/createGroup"
@@ -34,7 +35,7 @@
             android:onClick="onClick"
             android:background="@android:color/transparent"
             android:layout_marginTop="30dp"
-            android:src="@drawable/create_group_buttonx" />
+            android:src="@drawable/create_group_submenu_buttonx" />
 
         <ProgressBar
             android:id="@+id/progressBarLogin"
