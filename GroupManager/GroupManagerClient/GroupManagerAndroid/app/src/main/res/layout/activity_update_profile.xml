@@ -61,7 +61,8 @@
         android:hint="@string/email_hint"
         android:textColorHint="#ffc9bfcc"
         android:textColor="#FFFFFF"
-        android:textSize="30dp">
+        android:textSize="30dp"
+        android:editable="false">
         <requestFocus />
     </EditText>
 
