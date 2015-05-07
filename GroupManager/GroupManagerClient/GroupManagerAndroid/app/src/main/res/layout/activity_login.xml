@@ -12,11 +12,12 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="200dp"
         android:ems="10"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:hint="@string/email_hint" >
+        android:textColor="#ffe7ffe9"
+        android:textColorHint="#ffc9bfcc"
+        android:hint="@string/email_hint"
+        android:textSize="20dp">
 
         <requestFocus />
     </EditText>
@@ -28,8 +29,9 @@
         android:ems="10"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
-        android:textColorHint="#FFFFFF"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#ffe7ffe9"
+        android:textColorHint="#ffc9bfcc"
+        android:textSize="20dp"/>
 
 
     <ImageButton
@@ -51,7 +53,7 @@
         android:layout_gravity="center"
         android:onClick="onClick"
         android:background="@android:color/transparent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/create_accountx" />
 
         <requestFocus />

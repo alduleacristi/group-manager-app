@@ -44,14 +44,13 @@ public class UpdateProfileActivity extends ActionBarActivity {
         sharedPreferencesUtil = new SharedPreferencesUtil(UpdateProfileActivity.this);
 
         final String email = sharedPreferencesUtil.getEmail();
-        TextView helloUser = (TextView) findViewById(R.id.helloUser);
-        helloUser.setText(email);
 
         final EditText firstNameET = (EditText) findViewById(R.id.textFirstName);
         final EditText lastNameET = (EditText) findViewById(R.id.textLastName);
         final EditText passwordET = (EditText) findViewById(R.id.new_password);
         final EditText retypedPasswordET = (EditText) findViewById(R.id.new_retyped_Password);
         final EditText emailET = (EditText) findViewById(R.id.new_Email);
+        final EditText oldPasswordET = (EditText) findViewById(R.id.oldPassword);
 
         Runnable runnableComplete = new Runnable() {
             @Override
@@ -107,7 +106,8 @@ public class UpdateProfileActivity extends ActionBarActivity {
                         if (!emailET.getText().toString().equals(""))
                             userDTO.setEmail(emailET.getText().toString());
                         if ((passwordET.getText().toString().equals("")==false) && passwordET.getText().toString().equals(retypedPasswordET.getText().toString()))
-                            userDTO.setPassword(passwordET.getText().toString());
+                            if(oldPasswordET.getText().toString().equals(userDTO.getPassword()))
+                                userDTO.setPassword(passwordET.getText().toString());
                         try {
                             AccountCommunications acc = new AccountCommunications();
                             GroupManagerResponse resp = acc.updateUser(userDTO,

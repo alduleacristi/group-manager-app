@@ -6,17 +6,6 @@
     android:background="@drawable/bg"
     android:weightSum="1">
 
-    <TextView
-    android:layout_width="178dp"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:id="@+id/helloUser"
-    android:layout_marginTop="10dp"
-    android:gravity="center_vertical|right"
-    android:textColor="#FFFFFF"
-    android:textStyle="bold"
-    android:layout_marginRight="10px"
-        android:layout_gravity="right" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -27,12 +16,12 @@
         android:id="@+id/textFirstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:inputType="text"
         android:ems="10"
         android:hint="@string/new_fist_name_hint"
         android:textColorHint="#ffc9bfcc"
-        android:textColor="#FFFFFF"
+        android:textColor="#178eff6a"
         android:textSize="30dp">
         <requestFocus />
     </EditText>
@@ -46,7 +35,7 @@
         android:ems="10"
         android:hint="@string/new_last_name_hint"
         android:textColorHint="#ffc9bfcc"
-        android:textColor="#FFFFFF"
+        android:textColor="#ffe7ffe9"
         android:textSize="30dp">
         <requestFocus />
     </EditText>
@@ -60,7 +49,7 @@
         android:ems="10"
         android:hint="@string/email_hint"
         android:textColorHint="#ffc9bfcc"
-        android:textColor="#FFFFFF"
+        android:textColor="#ffe7ffe9"
         android:textSize="30dp"
         android:editable="false">
         <requestFocus />
@@ -74,22 +63,34 @@
         android:ems="10"
         android:hint="@string/new_password_hint"
         android:textColorHint="#ffc9bfcc"
-        android:textColor="#FFFFFF"
+        android:textColor="#ffe7ffe9"
         android:textSize="30dp">
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/new_retyped_Password"
+    android:id="@+id/new_retyped_Password"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPassword"
+    android:hint="@string/retype_password_hint"
+    android:textColorHint="#ffc9bfcc"
+    android:textColor="#ffe7ffe9"
+    android:textSize="30dp">
+    <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/oldPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:hint="@string/retype_password_hint"
+        android:hint="@string/type_old_password_hint"
         android:textColorHint="#ffc9bfcc"
-        android:textColor="#FFFFFF"
+        android:textColor="#ffe7ffe9"
         android:textSize="30dp">
-
         <requestFocus />
     </EditText>
 

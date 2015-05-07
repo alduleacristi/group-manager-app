@@ -57,8 +57,9 @@ public class LoginActivity extends ActionBarActivity {
         sharedPreferencesUtil = new SharedPreferencesUtil(LoginActivity.this);
         showMessageUtil = new ShowMessageUtil(handler,LoginActivity.this);
 
-        final EditText email = (EditText) findViewById(R.id.email);
-        final EditText password = (EditText) findViewById(R.id.password);
+        final EditText emailET = (EditText) findViewById(R.id.email);
+        final EditText passwordET = (EditText) findViewById(R.id.password);
+
         final ImageButton login = (ImageButton) findViewById(R.id.loginButton);
         final ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBarLogin);
 
@@ -74,8 +75,8 @@ public class LoginActivity extends ActionBarActivity {
 
                     public void run() {
                         UserDTO user = new UserDTO();
-                        user.setEmail(email.getText().toString());
-                        user.setPassword(password.getText().toString());
+                        user.setEmail(emailET.getText().toString());
+                        user.setPassword(passwordET.getText().toString());
 
                         LoginCommunications loginCommunications = new LoginCommunications();
 

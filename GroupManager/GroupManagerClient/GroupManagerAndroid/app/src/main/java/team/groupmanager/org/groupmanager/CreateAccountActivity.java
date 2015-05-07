@@ -38,6 +38,8 @@ public class CreateAccountActivity extends ActionBarActivity {
 
         final EditText email = (EditText) findViewById(R.id.textEmail);
         final EditText pass = (EditText) findViewById(R.id.password);
+        final EditText firstNameET = (EditText) findViewById(R.id.firstName);
+        final EditText lastNameET = (EditText) findViewById(R.id.lastName);
         final EditText retypePass = (EditText) findViewById(R.id.retypePassword);
         final ImageButton createAccount = (ImageButton) findViewById(R.id.createAccount);
         final ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBarLogin);
@@ -75,8 +77,8 @@ public class CreateAccountActivity extends ActionBarActivity {
                                 UserDTO userDTO = new UserDTO();
                                 userDTO.setEmail(email.getText().toString());
                                 userDTO.setPassword(pass.getText().toString());
-                                //userDTO.setFirstName("F");
-                                //userDTO.setLastName("B");
+                                userDTO.setFirstName(firstNameET.getText().toString());
+                                userDTO.setLastName(lastNameET.getText().toString());
 
                                 accountCommunications.sendAddAccount(userDTO, Constants.URL+"/GroupManager/api/users/addUser");
                                 Intent intent = new Intent(CreateAccountActivity.this,LoginActivity.class);

@@ -16,6 +16,7 @@
     <string name="new_last_name_hint">New Last Name</string>
 
     <string name="login_btn">Login</string>
+    <string name="type_old_password_hint">Old Password</string>
     <string name="createaccount_hint">Create account</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="error_password">Password and retype password must be the same</string>
